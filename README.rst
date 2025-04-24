@@ -58,29 +58,51 @@ in the : *result.key*.
 
  .. code-block:: python
 
-   # pargs can have additional arguments
-   pargs = ['/usr/bin/sleep']       
-   tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+    #!/usr/bin/python
 
-   proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)
-   await proc_run.run_all()
-   proc_run.print_results()
+    import asyncio
+    from pyconcurrent import ProcRunAsyncio
+
+    async def main():
+        # pargs can have additional arguments
+        pargs = ['/usr/bin/sleep']       
+        tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+
+        proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)
+        await proc_run.run_all()
+        proc_run.print_results()
+
+    if __name__ == '__main__':
+        asyncio.run(main())
 
 To switch to *multiprocessing* simply replace *ProcRunAsyncio* with  *ProcRunMp*, 
 and drop *await* since MP is not *async*. i.e.
 
  .. code-block:: python
 
-   pargs = ['/usr/bin/sleep']
-   tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+    #!/usr/bin/python
 
-   proc_run = ProcRunMp(pargs, tasks, num_workers=4, timeout=30)
-   proc_run.run_all()
-   proc_run.print_results()
+    from pyconcurrent import ProcRunMp
+
+    def main()
+        pargs = ['/usr/bin/sleep']
+        tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+
+        proc_run = ProcRunMp(pargs, tasks, num_workers=4, timeout=30)
+        proc_run.run_all()
+        proc_run.print_results()
+
+    if __name__ == '__main__':
+        main()
 
 This example uses a caller supplied function with asyncio:
 
  .. code-block:: python
+    
+    #!/usr/bin/python
+
+    import asyncio
+    from pyconcurrent import ProcRunAsyncio
 
     async def test_func_async(key, args) -> (bool, []):
         ''' return 2-tuple (success, result) '''
@@ -96,12 +118,16 @@ This example uses a caller supplied function with asyncio:
               }
         return (success, answer)
 
-        pargs = [test_func_async, 'dummy-arg']]
+    async def main():
+        pargs = [test_func_async, 'dummy-arg']
         tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
 
         proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)
         await proc_run.run_all()
         proc_run.print_results()
+
+    if __name__ == '__main__':
+        asyncio.run(main())
 
 For equivalent multiprocessor version then, as above, simply replace *ProcRunAsyncio* 
 with *ProcRunMp* and drop any references to **async/await**.
