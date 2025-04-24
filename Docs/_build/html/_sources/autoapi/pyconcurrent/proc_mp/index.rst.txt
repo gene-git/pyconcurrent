@@ -1,0 +1,39 @@
+pyconcurrent.proc_mp
+====================
+
+.. py:module:: pyconcurrent.proc_mp
+
+.. autoapi-nested-parse::
+
+   Concurrent tasks using multiprocessing.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: ProcRunMp(pargs: [Any], tasks: [(Any, Any)], num_workers: int = 4, timeout: int = 0, verb: bool = False)
+
+
+
+   Run concurrent processes using multiprocessing.
+
+   Same calling convention as ProcRunAsyncio.
+
+   Note: func cannot be async func() - conflicts with mp starmap using async
+
+
+   .. py:method:: print_results()
+
+      Test tool : prints each result using the ProcResul::print()
+
+
+
+   .. py:method:: run_all()
+
+      Do the work
+
+
+

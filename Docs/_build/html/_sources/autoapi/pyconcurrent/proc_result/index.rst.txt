@@ -1,0 +1,56 @@
+pyconcurrent.proc_result
+========================
+
+.. py:module:: pyconcurrent.proc_result
+
+.. autoapi-nested-parse::
+
+   Run process with timeout
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: ProcResult(key, arg)
+
+   Result of running one of the concurrent processes.
+
+   Args:
+       key (Any): 
+           Caller provided unique identifier.
+       arg (Any): 
+           The additional argument used for this run.
+
+   Attributes:
+       time_start (float): 
+           Unix time in seconds.
+       time_run (float): 
+           Seconds taken for this item to complete.
+       success (bool): 
+           True if completed successfully.
+       timeout (bool): 
+           True if process failed to completed in less than timeout restriction.
+       key (Any): 
+           The caller provided unique identifier.
+       arg (Any): 
+           The called provided argument for this run.
+       returncode (int): 
+           Return value of subprocess. Typically 0 for success.
+       stdout (str): 
+           Returned stdout of subprocess.
+       stderr (str): 
+           Returned stderr of subprocess.
+       answer (Any): 
+           Return provided by the function.
+
+
+
+   .. py:method:: print()
+
+      Testing: simple print attributes 
+
+
+
