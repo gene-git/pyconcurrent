@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 1.3.1 (2025-04-24)
-	8 commits.
+	1.1.2 (2025-04-24) -> 1.3.2 (2025-04-24)
+	10 commits.
 
 Commits
 =======
 
+
+* 2025-04-24  : **1.3.2**
+
+::
+
+ 	     Change examples in README to include everything to actually run
+ 	     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-24  : **1.3.1**
 
