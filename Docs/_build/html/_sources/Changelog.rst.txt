@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2, origin/master (2025-04-24) -> 1.1.3 (2025-04-24)
-	2 commits.
+	1.1.2 (2025-04-24) -> 1.2.0 (2025-04-24)
+	4 commits.
 
 Commits
 =======
 
+
+* 2025-04-24  : **1.2.0**
+
+::
+
+ 	     Move tests dir to top level
+ 	     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-24  : **1.1.3**
 
@@ -20,7 +27,7 @@ Commits
 
  	     Add dateutil dep to PKGBUILD
 
-* 2025-04-24  : **1.1.2, origin/master**
+* 2025-04-24  : **1.1.2**
 
 ::
 
