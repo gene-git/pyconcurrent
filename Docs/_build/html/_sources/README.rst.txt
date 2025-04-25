@@ -48,12 +48,13 @@ Here are a couple of simple examples illustrating how the module can be used.
 This example uses asyncio and subprocesses to call an executable.
 *tasks* must be a list of *(key, arg)* pairs, 1 per task. 
 
-*key* is a unique identifier, used by calle,  per task. arg is an additional argument 
-for each task. Each result returned contains both the *key* and the *arg* used for that task.
+*key* is a unique identifier, used by calleer, one per task. *arg* is an additional argument 
+for each task; typicall whatever work that task is responsible for. 
+Each result returned contains both the *key* and the *arg* used by that task.
 
-This has 5 items to be run concurrently.  The results are 
+This example has 5 tasks to be run concurrently, at most 4 at a time. The results are 
 available in the *proc_run.result*, which is a list of *ProcResult* items; one per task.
-Since the result order is not pre-defined, each task is identifiable by it's key available 
+Since the result order is not pre-defined, each task is identifiable by it's *key* available 
 in the : *result.key*.
 
  .. code-block:: python
@@ -95,7 +96,9 @@ and drop *await* since MP is not *async*. i.e.
     if __name__ == '__main__':
         main()
 
-This example uses a caller supplied function with asyncio:
+The next example uses a caller supplied function together with asyncio. As in the first
+example, there are 5 tasks to do and the number of workers is 4, so that 4 tasks 
+are permitted to be run simultaneously.
 
  .. code-block:: python
     
@@ -129,13 +132,14 @@ This example uses a caller supplied function with asyncio:
     if __name__ == '__main__':
         asyncio.run(main())
 
-For equivalent multiprocessor version then, as above, simply replace *ProcRunAsyncio* 
+For equivalent multiprocessor version for this one, same as above, simply replace *ProcRunAsyncio* 
 with *ProcRunMp* and drop any references to **async/await**.
-The user supplied function must return a 2-tuple of *(success:bool, answer:Any)* where success
-should be *True* if function succeeded.
 
-The function may optionally raise an *RuntimeError* exception, but typically setting *success*
-is sufficient.
+The caller supplied function here, *test_func_async()*, must return a 2-tuple 
+of *(success:bool, answer:Any)* where success should be *True* if function succeeded.
+
+The function may optionally raise a *RuntimeError* exception, but typically setting *success*
+is sufficient. If you are using execptions then please use this one.
 
 ########
 Appendix

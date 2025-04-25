@@ -7,51 +7,58 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 1.3.2 (2025-04-24)
-	10 commits.
+	1.1.2 (2025-04-24) -> 1.3.3 (2025-04-25)
+	12 commits.
 
 Commits
 =======
 
 
+* 2025-04-25  : **1.3.3**
+
+::
+
+                Fix readme typo and small tweak for clarity
+ 2025-04-24     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
+
 * 2025-04-24  : **1.3.2**
 
 ::
 
- 	     Change examples in README to include everything to actually run
- 	     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
+                Change examples in README to include everything to actually run
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-24  : **1.3.1**
 
 ::
 
- 	     Add note about git signing key in readme
- 	     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
+                Add note about git signing key in readme
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-24  : **1.3.0**
 
 ::
 
- 	     Add missing tests dir after it was moved
- 	     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
+                Add missing tests dir after it was moved
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-24  : **1.2.0**
 
 ::
 
- 	     Move tests dir to top level
- 	     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
+                Move tests dir to top level
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-24  : **1.1.3**
 
 ::
 
- 	     Add dateutil dep to PKGBUILD
+                Add dateutil dep to PKGBUILD
 
 * 2025-04-24  : **1.1.2**
 
 ::
 
- 	     Initial Commit
+                Initial Commit
 
 
