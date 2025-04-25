@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
 '''
 Run process with timeout
 '''
@@ -23,7 +25,7 @@ class ProcRun:
     def __init__(self,
                  pargs:[Any],
                  tasks:[(Any, Any)],
-                 mp_type:MPType.MP,
+                 mp_type:MPType,
                  num_workers:int=4,
                  timeout:int=0,
                  verb:bool=False):

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
 '''
 Concurrent tasks using asyncio.
 '''
@@ -123,6 +125,13 @@ class ProcRunAsyncio(ProcRun):
             res.returncode = proc.returncode
             if proc.returncode == 0:
                 res.success = True
+
+            if res.stdout:
+                res.stdout = res.stdout.decode()
+            if res.stderr:
+                res.stderr = res.stderr.decode()
+
+            print(f' type(stdout) : {type(res.stdout)}')
 
         except asyncio.TimeoutError:
             proc.kill()

@@ -9,7 +9,7 @@ import sys
 import time
 
 parent_dir = os.path.abspath('../src')
-sys.path.append(parent_dir)
+sys.path.insert(0, parent_dir)
 from pyconcurrent import ProcRunMp
 
 def _func_mp(key, args) -> (bool, []):

@@ -4,11 +4,11 @@
 Project pyconcurrent
 """
 
-__version__ = "1.3.3"
+__version__ = "1.4.0"
 __date__ = "2025-04-25"
 __reldev__ = "release"
 
 def version() -> str:
     """ report version and release date """
-    vers = f'python-parallel: version {__version__} ({__date__}'
+    vers = f'pyconcurrent: version {__version__} ({__date__}'
     return vers

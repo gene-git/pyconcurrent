@@ -19,7 +19,7 @@ import time
 import asyncio
 
 parent_dir = os.path.abspath('../src')
-sys.path.append(parent_dir)
+sys.path.insert(0, parent_dir)
 
 from pyconcurrent import ProcRunMp
 from pyconcurrent import ProcRunAsyncio
@@ -154,6 +154,7 @@ async def main():
     #
     # mants = mp, async, notimeout, timeout, serial
     #
+    breakpoint()
     tests = _what_to_test()
 
     if tests.mp:

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
 '''
 Some private types
 Only used internally

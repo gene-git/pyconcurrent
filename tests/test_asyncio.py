@@ -10,7 +10,7 @@ import asyncio
 import pytest
 
 parent_dir = os.path.abspath('../src')
-sys.path.append(parent_dir)
+sys.path.insert(0, parent_dir)
 from pyconcurrent import ProcRunAsyncio
 
 async def _func_async(key, args) -> (bool, []):
