@@ -7,12 +7,21 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 1.3.3 (2025-04-25)
-	12 commits.
+	1.1.2 (2025-04-24) -> 1.4.0 (2025-04-25)
+	14 commits.
 
 Commits
 =======
 
+
+* 2025-04-25  : **1.4.0**
+
+::
+
+                asyncio : missing decode() for stdout/err
+                pytest : ensure python path uses dev source for tests
+                Add missing SPDX identifiers
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-25  : **1.3.3**
 
