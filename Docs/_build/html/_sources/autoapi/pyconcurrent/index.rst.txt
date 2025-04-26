@@ -5,8 +5,8 @@ pyconcurrent
 
 .. autoapi-nested-parse::
 
-   Public Methods
-   pyconcurrent 
+   Public Methods.
+   pyconcurrent.
 
 
 

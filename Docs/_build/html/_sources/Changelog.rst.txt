@@ -7,12 +7,21 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 1.4.0 (2025-04-25)
-	14 commits.
+	1.1.2 (2025-04-24) -> 1.4.1 (2025-04-26)
+	16 commits.
 
 Commits
 =======
 
+
+* 2025-04-26  : **1.4.1**
+
+::
+
+                More consistent with PEP-8 & PEP-257.
+                  Primarily double quotes for docstrings instead of single and ensure ends
+                  with period.
+ 2025-04-25     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-25  : **1.4.0**
 
