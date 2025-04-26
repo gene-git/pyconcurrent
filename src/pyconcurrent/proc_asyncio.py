@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
-'''
+"""
 Concurrent tasks using asyncio.
-'''
+"""
 # pylint: disable=broad-exception-caught
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 # pylint: disable=duplicate-code
@@ -21,7 +21,7 @@ from ._types import (CallType, MPType)
 # Public Class
 #
 class ProcRunAsyncio(ProcRun):
-    '''
+    """
     Run concurrent processes using asyncio.
 
     Asynio concurrent process runs. Supports program to be run as a subprocess or a function to be called.
@@ -53,7 +53,7 @@ class ProcRunAsyncio(ProcRun):
 
     Methods:
 
-    '''
+    """
     def __init__(self,
                  pargs:[Any],
                  tasks:[(Any, Any)],
@@ -67,14 +67,15 @@ class ProcRunAsyncio(ProcRun):
             loop.set_default_executor(ThreadPoolExecutor(max_workers=self.num_workers))
 
     async def _task_one_func(self, key, arg):
-        '''
-        Call one instance of a function pargs[0](pargs[1:] + [arg])
+        """
+        Private: Call one instance of a function pargs[0](pargs[1:] + [arg]).
+
          - function must return a tupple:
             (success:bool, Any)
          - Exceptions func() may raise:
            RuntimeError
            timeout is ignored in this routine.
-        '''
+        """
         if self.verb:
             print(f' _task_one_func {key} {arg} {self.timeout}')
 
@@ -101,9 +102,9 @@ class ProcRunAsyncio(ProcRun):
         return res
 
     async def _task_one_exec(self, key, arg):
-        '''
-        Run one instance pargs + [arg]
-        '''
+        """
+        Private: Run one instance pargs + [arg].
+        """
         if self.verb:
             print(f'_task_one_exec {key} {arg} {self.timeout}')
 
@@ -148,11 +149,12 @@ class ProcRunAsyncio(ProcRun):
         return res
 
     def _get_task_one(self) -> Callable:
-        '''
-        Return the method to use for each run
+        """
+        Private: Return the method to use for each run.
+
          - run a function
-         - exec a subprocess
-        '''
+         - exec a subprocess.
+        """
         match self.call_type :
             case CallType.FUNCTION:
                 return self._task_one_func
@@ -161,27 +163,28 @@ class ProcRunAsyncio(ProcRun):
                 return self._task_one_exec
 
     async def _run_one_at_a_time(self):
-        '''
-        Run : one at a time
-         - task = (key, arg)
-        '''
+        """
+        Private: Run one at a time.
+
+         - task = (key, arg).
+        """
         task_one = self._get_task_one()
         for task in self.tasks:
             res = await task_one(*task)
             self.result.append(res)
 
     async def _run_gather(self):
-        '''
-        Run using asyncio
-        '''
+        """
+        Private: Run using asyncio.
+        """
         task_one = self._get_task_one()
         tasks = [task_one(*task) for task in self.tasks]
         self.result = await asyncio.gather(*tasks)
 
     async def run_all(self):
-        '''
+        """
         Start running all the provided commands/functions concurrently.
-        '''
+        """
         if not self.ok:
             print('Error - unable to run')
             return

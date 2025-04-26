@@ -65,7 +65,7 @@ in the : *result.key*.
     from pyconcurrent import ProcRunAsyncio
 
     async def main():
-        # pargs can have additional arguments
+        """pargs can have additional arguments."""
         pargs = ['/usr/bin/sleep']       
         tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
 
@@ -108,10 +108,9 @@ are permitted to be run simultaneously.
     from pyconcurrent import ProcRunAsyncio
 
     async def test_func_async(key, args) -> (bool, []):
-        ''' return 2-tuple (success, result) '''
+        """return 2-tuple (success, result)."""
         success = True
-        # pull off the last argument
-        nap = args[-1]
+        nap = args[-1]              # pull off the last argument
         await asyncio.sleep(nap)
         answer = {
                 'key' : key,

@@ -1,15 +1,15 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
-'''
+"""
 Run process with timeout
-'''
+"""
 # pylint: disable=too-many-instance-attributes,too-few-public-methods
 
 from typing import Any
 import time
 
 class ProcResult:
-    '''
+    """
     Result of running one of the concurrent processes.
     
     Args:
@@ -40,7 +40,7 @@ class ProcResult:
         answer (Any): 
             Return provided by the function.
 
-    '''
+    """
     def __init__(self, key, arg):
         self.time_start = time.time()
         self.time_end : float = -1
@@ -55,7 +55,7 @@ class ProcResult:
         self.answer : Any = None        # function returns (success, answer)
 
     def print(self):
-        ''' Testing: simple print attributes '''
+        """ Testing: simple print attributes."""
         print('========================================')
         print(f'key                 : {self.key}')
         print(f'  time_start        : {self.time_start:.1f}')

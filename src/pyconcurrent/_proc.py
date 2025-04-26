@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
-'''
+"""
 Run process with timeout
-'''
+"""
 # pylint: disable=too-many-instance-attributes,too-few-public-methods
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 
@@ -17,11 +17,11 @@ from ._types import (CallType, MPType)
 #   Base Class for both mp and asyncio
 #
 class ProcRun:
-    '''
+    """
     Parallelization via asyncio / multiprocessing.
 
-    Base Class used by ProcRunMP / ProcRunAsyncio
-    '''
+    Base Class used by ProcRunMP / ProcRunAsyncio.
+    """
     def __init__(self,
                  pargs:[Any],
                  tasks:[(Any, Any)],
@@ -29,9 +29,9 @@ class ProcRun:
                  num_workers:int=4,
                  timeout:int=0,
                  verb:bool=False):
-        '''
-        Basic Setup ahead of .run_all()
-        '''
+        """
+        Basic Setup ahead of .run_all().
+        """
         self.ok = True
         self.verb = verb
         self.num_workers = num_workers
@@ -50,9 +50,9 @@ class ProcRun:
         self._prepare()
 
     def _prepare(self):
-        '''
-        Prepare the work
-        '''
+        """
+        Prepare the work.
+        """
         self.call_type = CallType.EXEC
         self.mp_type = MPType.MP
         self.ok = True
@@ -65,9 +65,9 @@ class ProcRun:
             self.num_workers = 1
 
     def print_results(self):
-        '''
-        Test tool : prints each result using the ProcResul::print()
-        '''
+        """
+        Test tool : prints each result using the ProcResul::print().
+        """
         print(10*'*')
         dtm = seconds_to_datetime_string(self.time_start)
         print(f'Test start time : {dtm}')

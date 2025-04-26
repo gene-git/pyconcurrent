@@ -1,24 +1,25 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
-'''
-Shared tools
-'''
+"""
+Shared tools.
+"""
 import datetime
 import dateutil
 from dateutil import tz
 
 def get_datetime_now() -> datetime.datetime:
-    '''
-    Get current date time
-    '''
+    """
+    Get current date time.
+    """
     dtm = datetime.datetime.now(tz.tzlocal())
     return dtm
 
 def get_reltime(date_str:str, now:datetime.datetime) -> int:
-    '''
-    Get relative time in seconds
-    now - date
-    '''
+    """
+    Get relative time in seconds.
+
+     return now - date.
+    """
     if not date_str:
         return -1
 
@@ -28,9 +29,9 @@ def get_reltime(date_str:str, now:datetime.datetime) -> int:
     return seconds
 
 def fmt_seconds(secs : int) -> str:
-    '''
+    """
     format output given seconds.
-    '''
+    """
     hour = int(secs // 3600)
     secs %= 3600
 
@@ -47,9 +48,9 @@ def fmt_seconds(secs : int) -> str:
     return dtf
 
 def seconds_to_datetime_string(seconds:float) -> str:
-    '''
-    Convert seconds to human
-    '''
+    """
+    Convert seconds to human.
+    """
     dtime = datetime.datetime.fromtimestamp(seconds)
     dtime_str = dtime.strftime('%Y-%m-%d %H:%M:%S')
     return dtime_str

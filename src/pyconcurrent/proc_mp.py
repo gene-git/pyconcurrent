@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
-'''
+"""
 Concurrent tasks using multiprocessing.
-'''
+"""
 # pylint: disable=broad-exception-caught
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 # pylint: disable=consider-using-with
@@ -21,13 +21,13 @@ from .proc_result import ProcResult
 # Public Class
 #
 class ProcRunMp(ProcRun):
-    '''
+    """
     Run concurrent processes using multiprocessing.
 
     Same calling convention as ProcRunAsyncio.
 
     Note: func cannot be async func() - conflicts with mp starmap using async
-    '''
+    """
     _start_method_set = False
     def __init__(self,
                  pargs:[Any],
@@ -35,19 +35,20 @@ class ProcRunMp(ProcRun):
                  num_workers:int=4,
                  timeout:int=0,
                  verb:bool=False):
-        '''
+        """
         Basic Setup ahead of .run_all()
-        '''
+        """
         super().__init__(pargs, tasks, MPType.MP, num_workers, timeout, verb)
         if not ProcRunMp._start_method_set:
             multiprocessing.set_start_method('spawn', force=True)
             ProcRunMp._start_method_set = True
 
     def _get_task_one(self) -> Callable:
-        '''
-        Run one instance pargs + [arg]
+        """
+        Private: Run one instance pargs + [arg]
+
         Wrapper for MP. Handles func() and subprocess
-        '''
+        """
         match self.call_type :
             case CallType.FUNCTION:
                 return self._task_one_func
@@ -57,14 +58,15 @@ class ProcRunMp(ProcRun):
         return None
 
     def _task_one_func(self, key, arg):
-        '''
-        Call one instance of a function pargs[0](pargs[1:] + [arg])
+        """
+        Private: Call one instance of a function pargs[0](pargs[1:] + [arg]).
+
          - function must return a tupple:
             (success:bool, Any)
          - Exceptions func() may raise:
            RuntimeError
            timeout is ignored in this routine.
-        '''
+        """
         if self.verb:
             print(f' _task_one_func {key} {arg} {self.timeout}')
 
@@ -91,10 +93,11 @@ class ProcRunMp(ProcRun):
         return res
 
     def _task_one_exec(self, key, arg):
-        '''
-        Run one instance pargs + [arg]
-        Wrapper for MP. Handles func() and subprocess
-        '''
+        """
+        Private: Run one instance pargs + [arg].
+
+        Wrapper for MP. Handles func() and subprocess.
+        """
         if self.verb:
             print(f'task_one {key} {arg} {self.timeout}')
         res = ProcResult(key, arg)
@@ -137,29 +140,31 @@ class ProcRunMp(ProcRun):
         return res
 
     def _run_one_at_a_time(self):
-        '''
-        Run : one at a time
+        """
+        Private: Run one at a time.
+
            Can also change to call subprocess directly.
-        '''
+        """
         task_one = self._get_task_one()
         for task in self.tasks:
             res = task_one(*task)
             self.result.append(res)
 
     def _run_mp(self):
-        '''
-        Run using asyncio
-            func = func(common:[str], key:str, arg:str)
-        '''
+        """
+        Private: Run using mp.
+
+            func = func(common:[str], key:str, arg:str).
+        """
         task_one = self._get_task_one()
         pool = multiprocessing.Pool(processes=self.num_workers)
         self.result = pool.starmap(task_one, self.tasks)
         pool.close()
 
     def run_all(self):
-        '''
+        """
         Do the work
-        '''
+        """
         if not self.ok:
             print('Error - unable to run')
             return
