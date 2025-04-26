@@ -14,38 +14,40 @@ pyconcurrent.proc_asyncio
 Module Contents
 ---------------
 
-.. py:class:: ProcRunAsyncio(pargs: [Any], tasks: [(Any, Any)], num_workers: int = 4, timeout: int = 0, verb: bool = False)
+.. py:class:: ProcRunAsyncio(pargs: List[Any], tasks: List[Tuple[Any, Any]], num_workers: int = 4, timeout: int = 0, verb: bool = False)
 
 
 
    Run concurrent processes using asyncio.
 
-   Asynio concurrent process runs. Supports program to be run as a subprocess or a function to be called.
-   The result of each run is returned as in ProcResult class instance. 
+   Asynio concurrent process runs. Supports program to be run as a
+   subprocess or a function to be called.
+   The result of each run is returned as in ProcResult class instance.
 
    Args:
-       pargs ([Any]): 
+       pargs ([Any]):
            The first element is the command/function to be run and remainder
-           are any additional arguments. 
-       tasks ([(Any, Any)]): 
-           List of task items to be run concurrently. 
+           are any additional arguments.
+       tasks ([(Any, Any)]):
+           List of task items to be run concurrently.
            Each task is a 2-tuple, *(key, arg)*.
-           Key is a unique identifier for this run. arg is an additional argument
-           to the routine when it is called.  Both key and arg are saved 
-           into the result class instance returned.
-       num_workers (int): 
+           Key is a unique identifier,and
+           arg is an additional argument to the routine when it is called.
+           Both key and arg are saved into the result class instance returned.
+       num_workers (int):
            Max number of processes to use. Value of 0 is unlimited and 1 will
            mean each is run serially one at a time.
-       timeout (int): 
-           Applies to commands run as subprocesses. The maximum number of seconds allotted
-           to each process. If not complete, then process will be killed and the result
-           will have res.success set to *False* and res.timeout set to *True*.
-       verb (bool): 
+       timeout (int):
+           Applies to commands run as subprocesses. The maximum number of
+           seconds allotted to each process. If not complete, then process
+           will be killed and the result will have:
+               res.success set to *False* and res.timeout set to *True*.
+       verb (bool):
            If set to true, some additional information is sent to stdout.
 
    Attributes:
-       result (*[ProcResult]*): 
-           A list of results, one per item run. See ProcResult for details what is provided.
+       result (*[ProcResult]*):
+           List of results, one per task. See ProcResult for more detail.
 
    Methods:
 

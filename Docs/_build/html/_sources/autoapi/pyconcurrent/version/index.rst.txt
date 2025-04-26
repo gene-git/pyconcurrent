@@ -5,7 +5,7 @@ pyconcurrent.version
 
 .. autoapi-nested-parse::
 
-   Project pyconcurrent
+   Project pyconcurrent.
 
 
 

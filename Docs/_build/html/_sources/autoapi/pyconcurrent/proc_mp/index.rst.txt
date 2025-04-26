@@ -14,7 +14,7 @@ pyconcurrent.proc_mp
 Module Contents
 ---------------
 
-.. py:class:: ProcRunMp(pargs: [Any], tasks: [(Any, Any)], num_workers: int = 4, timeout: int = 0, verb: bool = False)
+.. py:class:: ProcRunMp(pargs: List[Any], tasks: List[Tuple[Any, Any]], num_workers: int = 4, timeout: int = 0, verb: bool = False)
 
 
 
@@ -23,6 +23,7 @@ Module Contents
    Same calling convention as ProcRunAsyncio.
 
    Note: func cannot be async func() - conflicts with mp starmap using async
+
 
 
    .. py:method:: print_results()

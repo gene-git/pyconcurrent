@@ -7,12 +7,20 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 1.4.1 (2025-04-26)
-	16 commits.
+	1.1.2 (2025-04-24) -> 1.5.0 (2025-04-26)
+	18 commits.
 
 Commits
 =======
 
+
+* 2025-04-26  : **1.5.0**
+
+::
+
+                Style per PEP-8, PEP-257 and PEP-484.
+                Bug fix with stdout/stderr returned for asyncio using subprocesses
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-26  : **1.4.1**
 

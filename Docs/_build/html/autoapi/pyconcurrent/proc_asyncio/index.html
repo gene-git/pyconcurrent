@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pyconcurrent.proc_asyncio &#8212; pyconcurrent 1.4.1 documentation</title>
+    <title>pyconcurrent.proc_asyncio &#8212; pyconcurrent 1.5.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-    <script src="../../../_static/documentation_options.js?v=350a9c04"></script>
+    <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -41,34 +41,38 @@
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyconcurrent.proc_asyncio.ProcRunAsyncio">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProcRunAsyncio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tasks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyconcurrent.proc_asyncio.ProcRunAsyncio" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProcRunAsyncio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tasks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyconcurrent.proc_asyncio.ProcRunAsyncio" title="Link to this definition">¶</a></dt>
 <dd><p>Run concurrent processes using asyncio.</p>
-<p>Asynio concurrent process runs. Supports program to be run as a subprocess or a function to be called.
+<p>Asynio concurrent process runs. Supports program to be run as a
+subprocess or a function to be called.
 The result of each run is returned as in ProcResult class instance.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="simple">
+<dl>
+<dt>Args:</dt><dd><dl>
 <dt>pargs ([Any]):</dt><dd><p>The first element is the command/function to be run and remainder
 are any additional arguments.</p>
 </dd>
 <dt>tasks ([(Any, Any)]):</dt><dd><p>List of task items to be run concurrently.
 Each task is a 2-tuple, <em>(key, arg)</em>.
-Key is a unique identifier for this run. arg is an additional argument
-to the routine when it is called.  Both key and arg are saved
-into the result class instance returned.</p>
+Key is a unique identifier,and
+arg is an additional argument to the routine when it is called.
+Both key and arg are saved into the result class instance returned.</p>
 </dd>
 <dt>num_workers (int):</dt><dd><p>Max number of processes to use. Value of 0 is unlimited and 1 will
 mean each is run serially one at a time.</p>
 </dd>
-<dt>timeout (int):</dt><dd><p>Applies to commands run as subprocesses. The maximum number of seconds allotted
-to each process. If not complete, then process will be killed and the result
-will have res.success set to <em>False</em> and res.timeout set to <em>True</em>.</p>
+<dt>timeout (int):</dt><dd><p>Applies to commands run as subprocesses. The maximum number of
+seconds allotted to each process. If not complete, then process
+will be killed and the result will have:</p>
+<blockquote>
+<div><p>res.success set to <em>False</em> and res.timeout set to <em>True</em>.</p>
+</div></blockquote>
 </dd>
 <dt>verb (bool):</dt><dd><p>If set to true, some additional information is sent to stdout.</p>
 </dd>
 </dl>
 </dd>
 <dt>Attributes:</dt><dd><dl class="simple">
-<dt>result (<em>[ProcResult]</em>):</dt><dd><p>A list of results, one per item run. See ProcResult for details what is provided.</p>
+<dt>result (<em>[ProcResult]</em>):</dt><dd><p>List of results, one per task. See ProcResult for more detail.</p>
 </dd>
 </dl>
 </dd>
