@@ -8,7 +8,7 @@ Concurrent tasks using multiprocessing.
 # pylint: disable=consider-using-with
 # pylint: disable=duplicate-code
 
-from typing import (Any, Callable)
+from typing import (Any, Callable, List, Tuple)
 import time
 import subprocess
 import multiprocessing
@@ -16,6 +16,7 @@ import multiprocessing
 from ._types import (CallType, MPType)
 from ._proc import (ProcRun)
 from .proc_result import ProcResult
+
 
 # ----------------------------------------
 # Public Class
@@ -27,14 +28,16 @@ class ProcRunMp(ProcRun):
     Same calling convention as ProcRunAsyncio.
 
     Note: func cannot be async func() - conflicts with mp starmap using async
+
     """
     _start_method_set = False
+
     def __init__(self,
-                 pargs:[Any],
-                 tasks:[(Any, Any)],
-                 num_workers:int=4,
-                 timeout:int=0,
-                 verb:bool=False):
+                 pargs: List[Any],
+                 tasks: List[Tuple[Any, Any]],
+                 num_workers: int = 4,
+                 timeout: int = 0,
+                 verb: bool = False):
         """
         Basic Setup ahead of .run_all()
         """
@@ -49,13 +52,15 @@ class ProcRunMp(ProcRun):
 
         Wrapper for MP. Handles func() and subprocess
         """
-        match self.call_type :
+        match self.call_type:
             case CallType.FUNCTION:
                 return self._task_one_func
 
             case CallType.EXEC:
                 return self._task_one_exec
-        return None
+
+            case _:
+                return self._task_one_exec
 
     def _task_one_func(self, key, arg):
         """
@@ -111,7 +116,7 @@ class ProcRunMp(ProcRun):
                                  stderr=subprocess.PIPE,
                                  check=False,
                                  timeout=self.timeout
-                                )
+                                 )
 
             res.time_end = time.time()
             res.time_run = res.time_end - res.time_start
@@ -130,10 +135,10 @@ class ProcRunMp(ProcRun):
             res.success = False
             res.timeout = True
 
-        except (FileNotFoundError,PermissionError, OSError) :
+        except (FileNotFoundError, PermissionError, OSError):
             res.success = False
 
-        except Exception :
+        except Exception:
             # catch all
             res.success = False
 
@@ -172,9 +177,9 @@ class ProcRunMp(ProcRun):
         # timer for entire run
         self.time_start = time.time()
 
-        if self.num_workers < 2 :
+        if self.num_workers < 2:
             self._run_one_at_a_time()
-        else :
+        else:
             self._run_mp()
 
         self.time_end = time.time()

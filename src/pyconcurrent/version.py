@@ -1,12 +1,13 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
 """
-Project pyconcurrent
+Project pyconcurrent.
 """
 
-__version__ = "1.4.1"
+__version__ = "1.5.0"
 __date__ = "2025-04-26"
 __reldev__ = "release"
+
 
 def version() -> str:
     """ report version and release date """

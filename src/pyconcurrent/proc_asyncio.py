@@ -7,7 +7,8 @@ Concurrent tasks using asyncio.
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 # pylint: disable=duplicate-code
 
-from typing import (Any, Callable)
+
+from typing import (Any, Callable, List, Tuple)
 import time
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
@@ -24,47 +25,51 @@ class ProcRunAsyncio(ProcRun):
     """
     Run concurrent processes using asyncio.
 
-    Asynio concurrent process runs. Supports program to be run as a subprocess or a function to be called.
-    The result of each run is returned as in ProcResult class instance. 
+    Asynio concurrent process runs. Supports program to be run as a
+    subprocess or a function to be called.
+    The result of each run is returned as in ProcResult class instance.
 
     Args:
-        pargs ([Any]): 
+        pargs ([Any]):
             The first element is the command/function to be run and remainder
-            are any additional arguments. 
-        tasks ([(Any, Any)]): 
-            List of task items to be run concurrently. 
+            are any additional arguments.
+        tasks ([(Any, Any)]):
+            List of task items to be run concurrently.
             Each task is a 2-tuple, *(key, arg)*.
-            Key is a unique identifier for this run. arg is an additional argument
-            to the routine when it is called.  Both key and arg are saved 
-            into the result class instance returned.
-        num_workers (int): 
+            Key is a unique identifier,and
+            arg is an additional argument to the routine when it is called.
+            Both key and arg are saved into the result class instance returned.
+        num_workers (int):
             Max number of processes to use. Value of 0 is unlimited and 1 will
             mean each is run serially one at a time.
-        timeout (int): 
-            Applies to commands run as subprocesses. The maximum number of seconds allotted
-            to each process. If not complete, then process will be killed and the result
-            will have res.success set to *False* and res.timeout set to *True*.
-        verb (bool): 
+        timeout (int):
+            Applies to commands run as subprocesses. The maximum number of
+            seconds allotted to each process. If not complete, then process
+            will be killed and the result will have:
+                res.success set to *False* and res.timeout set to *True*.
+        verb (bool):
             If set to true, some additional information is sent to stdout.
 
     Attributes:
-        result (*[ProcResult]*): 
-            A list of results, one per item run. See ProcResult for details what is provided.
+        result (*[ProcResult]*):
+            List of results, one per task. See ProcResult for more detail.
 
     Methods:
 
     """
     def __init__(self,
-                 pargs:[Any],
-                 tasks:[(Any, Any)],
-                 num_workers:int=4,
-                 timeout:int=0,
-                 verb:bool=False):
-        super().__init__(pargs, tasks, MPType.ASYNCIO, num_workers, timeout, verb)
+                 pargs: List[Any],
+                 tasks: List[Tuple[Any, Any]],
+                 num_workers: int = 4,
+                 timeout: int = 0,
+                 verb: bool = False):
 
-        if self.num_workers > 0:
+        super().__init__(pargs, tasks, MPType.ASYNCIO, num_workers,
+                         timeout, verb)
+
+        if num_workers > 0:
             loop = asyncio.get_running_loop()
-            loop.set_default_executor(ThreadPoolExecutor(max_workers=self.num_workers))
+            loop.set_default_executor(ThreadPoolExecutor(max_workers=num_workers))
 
     async def _task_one_func(self, key, arg):
         """
@@ -113,13 +118,14 @@ class ProcRunAsyncio(ProcRun):
         pargs_str = [str(one) for one in pargs]
 
         try:
+            pipe = asyncio.subprocess.PIPE
             proc = await asyncio.create_subprocess_exec(*pargs_str,
-                                                        stdout=asyncio.subprocess.PIPE,
-                                                        stderr=asyncio.subprocess.PIPE,
+                                                        stdout=pipe,
+                                                        stderr=pipe,
                                                         )
 
             timeout = self.timeout if self.timeout > 0 else None
-            res.stdout, res.stderr = await asyncio.wait_for(proc.communicate(), timeout=timeout)
+            await asyncio.wait_for(proc.communicate(), timeout=timeout)
 
             res.time_end = time.time()
             res.time_run = res.time_end - res.time_start
@@ -127,22 +133,25 @@ class ProcRunAsyncio(ProcRun):
             if proc.returncode == 0:
                 res.success = True
 
-            if res.stdout:
-                res.stdout = res.stdout.decode()
-            if res.stderr:
-                res.stderr = res.stderr.decode()
+            if proc.stdout:
+                data = await proc.stdout.read()
+                if data:
+                    res.stdout = data.decode('utf-8')
 
-            print(f' type(stdout) : {type(res.stdout)}')
+            if proc.stderr:
+                data = await proc.stderr.read()
+                if data:
+                    res.stderr = data.decode('utf-8')
 
         except asyncio.TimeoutError:
             proc.kill()
             res.success = False
             res.timeout = True
 
-        except (FileNotFoundError,PermissionError, OSError) :
+        except (FileNotFoundError, PermissionError, OSError):
             res.success = False
 
-        except Exception :
+        except Exception:
             # catch all
             res.success = False
 
@@ -155,11 +164,14 @@ class ProcRunAsyncio(ProcRun):
          - run a function
          - exec a subprocess.
         """
-        match self.call_type :
+        match self.call_type:
             case CallType.FUNCTION:
                 return self._task_one_func
 
             case CallType.EXEC:
+                return self._task_one_exec
+
+            case _:     # should never get here - added to keep mypy happy.
                 return self._task_one_exec
 
     async def _run_one_at_a_time(self):
@@ -194,7 +206,7 @@ class ProcRunAsyncio(ProcRun):
 
         if self.num_workers < 2:
             await self._run_one_at_a_time()
-        else :
+        else:
             await self._run_gather()
 
         self.time_end = time.time()

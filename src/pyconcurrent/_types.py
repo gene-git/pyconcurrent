@@ -1,11 +1,12 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
 """
-Some private types
+Some private types.
 
-Used internally
+Used internally.
 """
 from enum import Enum
+
 
 class CallType(Enum):
     """
@@ -16,6 +17,7 @@ class CallType(Enum):
     NONE = 0
     FUNCTION = 1
     EXEC = 2
+
 
 class MPType(Enum):
     """

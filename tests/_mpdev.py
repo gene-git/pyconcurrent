@@ -1,5 +1,5 @@
 #!/usr/bin/python
-'''
+"""
 Test harness for ProcRunn
  - test running program:
     - mtype = 'serial' or num_workers = 1
@@ -9,9 +9,11 @@ Test harness for ProcRunn
     - mtype = 'mp'
       subprocesses using multiprocessing threads
       or calling function if pargs[0] is a function instead of command to run
-    - NB asyncio with function not supported yet - only subprocesses
-'''
+    - NB asyncio with function not supported yet - only subprocesses.
+
+"""
 # pylint: disable=too-many-branches,wrong-import-position
+from typing import (Any, Dict, Tuple)
 from dataclasses import dataclass
 import os
 import sys
@@ -24,100 +26,113 @@ sys.path.insert(0, parent_dir)
 from pyconcurrent import ProcRunMp
 from pyconcurrent import ProcRunAsyncio
 
-def test_func_mp(key, args) -> (bool, []):
-    '''
-    Must return 2-tuple (success, result)
-    '''
+
+def test_func_mp(key: Any, args: Any) -> Tuple[bool, Dict[str, Any]]:
+    """
+    Must return 2-tuple (success, result).
+    """
     success = True
     nap = args[-1]
     time.sleep(nap)
 
     answer = {
-                'key' : key,
-                'args' : args,
-                'success' : success,
-                'result' : 'test_func done',
+                'key': key,
+                'args': args,
+                'success': success,
+                'result': 'test_func done',
               }
+
+    print('test funk says hi on stdout')
 
     return (success, answer)
 
-async def test_func_async(key, args) -> (bool, []):
-    '''
-    Must return 2-tuple (success, result)
-    '''
+
+async def test_func_async(key, args) -> Tuple[bool, Dict[str, Any]]:
+    """
+    Must return 2-tuple (success, result).
+    """
     success = True
     nap = args[-1]
     await asyncio.sleep(nap)
 
     answer = {
-                'key' : key,
-                'args' : args,
-                'success' : success,
-                'result' : 'test_func done',
+                'key': key,
+                'args': args,
+                'success': success,
+                'result': 'test_func done',
               }
 
     return (success, answer)
 
-def test_subprocess_mp(num_workers:int=5, timeout:int=30):
-    ''' test subprocess mp '''
+
+def test_subprocess_mp(num_workers: int = 5, timeout: int = 30):
+    """ test subprocess mp."""
     print(' ======= subprocess mp ========')
     pargs = ['/usr/bin/sleep']
-    tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+    tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
 
     runner = ProcRunMp(pargs, tasks, num_workers=num_workers, timeout=timeout)
     runner.run_all()
     runner.print_results()
     print('----------------')
 
-async def test_subprocess_asyncio(num_workers:int=5, timeout:int=30):
-    ''' test subprocess '''
+
+async def test_subprocess_asyncio(num_workers: int = 5, timeout: int = 30):
+    """ test subprocess."""
     print(' ======= subprocess asyncio  ========')
     pargs = ['/usr/bin/sleep']
-    tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
-    runner = ProcRunAsyncio(pargs, tasks, num_workers=num_workers, timeout=timeout)
+    tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
+    runner = ProcRunAsyncio(pargs, tasks, num_workers=num_workers,
+                            timeout=timeout)
     await runner.run_all()
     runner.print_results()
     print('----------------')
 
-async def test_function_asyncio(num_workers:int=5, timeout:int=30):
-    ''' test function version '''
+
+async def test_function_asyncio(num_workers: int = 5, timeout: int = 30):
+    """ test function version."""
     print(' ======= function asyncio ========')
     pargs = [test_func_async, "arg1"]
-    tasks = [(1, 1), (2,4), (3,2), (4, 2), (5, 1)]
+    tasks = [(1, 1), (2, 4), (3, 2), (4, 2), (5, 1)]
 
-    runner = ProcRunAsyncio(pargs, tasks, num_workers=num_workers, timeout=timeout, verb=True)
+    runner = ProcRunAsyncio(pargs, tasks, num_workers=num_workers,
+                            timeout=timeout, verb=True)
     await runner.run_all()
     runner.print_results()
     print('----------------')
 
-async def test_function_mp(num_workers:int=5, timeout:int=30):
-    ''' test function version '''
-    print(' ======= function asyncio ========')
+
+def test_function_mp(num_workers: int = 5, timeout: int = 30):
+    """ test function version."""
+    print(' ======= function mp ========')
     pargs = [test_func_mp, "arg1"]
-    tasks = [(1, 1), (2,4), (3,2), (4, 2), (5, 1)]
+    tasks = [(1, 1), (2, 4), (3, 2), (4, 2), (5, 1)]
 
-    runner = ProcRunMp(pargs, tasks, num_workers=num_workers, timeout=timeout, verb=True)
-    await runner.run_all()
+    runner = ProcRunMp(pargs, tasks, num_workers=num_workers,
+                       timeout=timeout, verb=True)
+    runner.run_all()
     runner.print_results()
     print('----------------')
+
 
 @dataclass
 class Tests:
-    ''' choice of tests to run '''
-    asyncio : True
-    exec_sub : True
-    function : True
-    mp : True
-    notimeout : True
-    serial : True
-    timeout : True
+    """ choice of tests to run."""
+    asyncio: bool = True
+    exec_sub: bool = True
+    function: bool = True
+    mp: bool = True
+    notimeout: bool = True
+    serial: bool = True
+    timeout: bool = True
+
 
 def _what_to_test() -> Tests:
-    '''
+    """
     defaults to all - really dumb just takes a string of first letters of test
 
-    e.g. aen    = asyncio exec_sub notimeout
-    '''
+    e.g. aen    = asyncio exec_sub notimeout.
+    """
     tests = Tests(asyncio=True,
                   exec_sub=True,
                   function=True,
@@ -142,9 +157,10 @@ def _what_to_test() -> Tests:
 
 
 async def main():
-    '''
-    Simple test using sleep (better is a program with actual output)
-    '''
+    """
+    Simple test using sleep (better is a program with actual output).
+    Super geeky dev only tool.
+    """
     #
     # pargs = [command, arg1, arg2, ... ]
     # tasks is list of 2-tuple of (key, argument)
@@ -154,7 +170,6 @@ async def main():
     #
     # mants = mp, async, notimeout, timeout, serial
     #
-    breakpoint()
     tests = _what_to_test()
 
     if tests.mp:
@@ -194,6 +209,7 @@ async def main():
 
         if tests.function and tests.serial:
             await test_function_asyncio(num_workers=1, timeout=30)
+
 
 if __name__ == '__main__':
     asyncio.run(main())

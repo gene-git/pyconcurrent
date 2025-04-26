@@ -1,9 +1,10 @@
-'''
+"""
 Test :
-    ProcRunMp class using subprocesses
-'''
+    ProcRunMp class using subprocesses.
+"""
 # pylint: disable=wrong-import-position,attribute-defined-outside-init
 # pylint: disable=duplicate-code
+from typing import (Any, Dict, Tuple)
 import os
 import sys
 import time
@@ -12,29 +13,31 @@ parent_dir = os.path.abspath('../src')
 sys.path.insert(0, parent_dir)
 from pyconcurrent import ProcRunMp
 
-def _func_mp(key, args) -> (bool, []):
-    '''
-    Async test function
-    '''
+
+def _func_mp(key, args) -> Tuple[bool, Dict[str, Any]]:
+    """
+    Async test function.
+    """
     success = True
     nap = args[-1]
     time.sleep(nap)
 
     answer = {
-                'key' : key,
-                'args' : args,
-                'success' : success,
-                'result' : 'test_func done',
-              }
+            'key': key,
+            'args': args,
+            'success': success,
+            'result': 'test_func done',
+            }
 
     return (success, answer)
 
+
 class TestMp:
-    '''
-    Tests ProcRunMp with and without a timeout case
-    '''
+    """
+    Tests ProcRunMp with and without a timeout case.
+    """
     def _prepare(self, pargs, tasks, timeout, num):
-        ''' set up the test '''
+        """ set up the test """
         self.pargs = pargs
         self.tasks = tasks
         self.timeout = timeout
@@ -43,18 +46,18 @@ class TestMp:
         self.all_ok = False
 
     def _result(self, prun, num_success_target):
-        ''' finalize and get result '''
+        """ finalize and get result """
         num_success = sum(res.success for res in prun.result)
         time_taken = sum(res.time_run for res in prun.result)
         self.all_ok = (num_success == num_success_target) and (time_taken <= self.time_max)
         return self.all_ok
 
     def test_mp_subprocess(self):
-        '''
-        Subprocess test without timeout being hit
-        '''
+        """
+        Subprocess test without timeout being hit.
+        """
         pargs = ['/usr/bin/sleep']
-        tasks =  [(1, 1), (2,4), (3,2)]
+        tasks = [(1, 1), (2, 4), (3, 2)]
         timeout = 10
         num = 5
         self._prepare(pargs, tasks, timeout, num)
@@ -67,11 +70,11 @@ class TestMp:
         assert all_ok
 
     def test_mp_subprocess_timeout(self):
-        '''
-        Subprocess test with timeout being hit once
-        '''
+        """
+        Subprocess test with timeout being hit once.
+        """
         pargs = ['/usr/bin/sleep']
-        tasks =  [(1, 1), (2,10), (3,2)]
+        tasks = [(1, 1), (2, 10), (3, 2)]
         timeout = 5
         num = 5
         self._prepare(pargs, tasks, timeout, num)
@@ -84,11 +87,11 @@ class TestMp:
         assert all_ok
 
     def test_mp_func(self):
-        '''
-        Function test without timeout being hit
-        '''
+        """
+        Function test without timeout being hit.
+        """
         pargs = [_func_mp, 'dummy1']
-        tasks =  [(1, 1), (2,4), (3,2)]
+        tasks = [(1, 1), (2, 4), (3, 2)]
         timeout = 10
         num = 5
         self._prepare(pargs, tasks, timeout, num)
@@ -101,11 +104,11 @@ class TestMp:
         assert all_ok
 
     def test_mp_func_timeout(self):
-        '''
-        Function test with 1 timeout being hit
-        '''
+        """
+        Function test with 1 timeout being hit.
+        """
         pargs = [_func_mp, 'dummy1']
-        tasks =  [(1, 1), (2,10), (3,2)]
+        tasks = [(1, 1), (2, 10), (3, 2)]
         timeout = 5
         num = 5
         self._prepare(pargs, tasks, timeout, num)

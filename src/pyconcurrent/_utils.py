@@ -4,8 +4,9 @@
 Shared tools.
 """
 import datetime
-import dateutil
+from dateutil import parser as date_parser
 from dateutil import tz
+
 
 def get_datetime_now() -> datetime.datetime:
     """
@@ -14,7 +15,8 @@ def get_datetime_now() -> datetime.datetime:
     dtm = datetime.datetime.now(tz.tzlocal())
     return dtm
 
-def get_reltime(date_str:str, now:datetime.datetime) -> int:
+
+def get_reltime(date_str: str, now: datetime.datetime) -> int:
     """
     Get relative time in seconds.
 
@@ -23,20 +25,23 @@ def get_reltime(date_str:str, now:datetime.datetime) -> int:
     if not date_str:
         return -1
 
-    date = dateutil.parser.parse(date_str)
+    date = date_parser.parse(date_str)
     delta = now - date
     seconds = delta.seconds
     return seconds
 
-def fmt_seconds(secs : int) -> str:
+
+def fmt_seconds(secs: int) -> str:
     """
     format output given seconds.
     """
     hour = int(secs // 3600)
     secs %= 3600
 
-    #days = int(hour // 24)
-    #hour %= 24
+    #
+    # days = int(hour // 24)
+    # hour %= 24
+    #
 
     mins = int(secs // 60)
     secs %= 60
@@ -47,7 +52,8 @@ def fmt_seconds(secs : int) -> str:
     dtf = f'{hfmt}{mfmt}{secs:04.1f}'
     return dtf
 
-def seconds_to_datetime_string(seconds:float) -> str:
+
+def seconds_to_datetime_string(seconds: float) -> str:
     """
     Convert seconds to human.
     """

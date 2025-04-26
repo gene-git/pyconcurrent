@@ -1,16 +1,18 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
 """
-Run process with timeout
+Run process with timeout.
 """
 # pylint: disable=too-many-instance-attributes,too-few-public-methods
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 
-from typing import Any
+from typing import (Any, List, Tuple)
 import time
 
-from ._utils import seconds_to_datetime_string
+from .proc_result import ProcResult
 from ._types import (CallType, MPType)
+from ._utils import seconds_to_datetime_string
+
 
 # ----------------------------------------
 # Public Class
@@ -23,12 +25,12 @@ class ProcRun:
     Base Class used by ProcRunMP / ProcRunAsyncio.
     """
     def __init__(self,
-                 pargs:[Any],
-                 tasks:[(Any, Any)],
-                 mp_type:MPType,
-                 num_workers:int=4,
-                 timeout:int=0,
-                 verb:bool=False):
+                 pargs: List[Any],
+                 tasks: List[Tuple[Any, Any]],
+                 mp_type: MPType,
+                 num_workers: int = 4,
+                 timeout: int = 0,
+                 verb: bool = False):
         """
         Basic Setup ahead of .run_all().
         """
@@ -37,15 +39,15 @@ class ProcRun:
         self.num_workers = num_workers
         self.pargs = pargs
         self.tasks = tasks
-        self.result = []
+        self.result: List[ProcResult] = []
         self.timeout = timeout
         self.mp_type = mp_type
-        self.call_type : CallType = CallType.EXEC
+        self.call_type: CallType = CallType.EXEC
 
         # track total run time
         self.time_start = time.time()
-        self.time_end : float = -1
-        self.time_run : float = -1
+        self.time_end: float = -1
+        self.time_run: float = -1
 
         self._prepare()
 

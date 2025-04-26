@@ -1,58 +1,59 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
 """
-Run process with timeout
+Result class which ProcRunMp/ProcRunAsyncio use.
 """
 # pylint: disable=too-many-instance-attributes,too-few-public-methods
 
 from typing import Any
 import time
 
+
 class ProcResult:
     """
     Result of running one of the concurrent processes.
-    
+
     Args:
-        key (Any): 
+        key (Any):
             Caller provided unique identifier.
-        arg (Any): 
+        arg (Any):
             The additional argument used for this run.
 
     Attributes:
-        time_start (float): 
+        time_start (float):
             Unix time in seconds.
-        time_run (float): 
+        time_run (float):
             Seconds taken for this item to complete.
-        success (bool): 
+        success (bool):
             True if completed successfully.
-        timeout (bool): 
-            True if process failed to completed in less than timeout restriction.
-        key (Any): 
+        timeout (bool):
+            True if failed to complete in less than timeout restriction.
+        key (Any):
             The caller provided unique identifier.
-        arg (Any): 
+        arg (Any):
             The called provided argument for this run.
-        returncode (int): 
+        returncode (int):
             Return value of subprocess. Typically 0 for success.
-        stdout (str): 
+        stdout (str):
             Returned stdout of subprocess.
-        stderr (str): 
+        stderr (str):
             Returned stderr of subprocess.
-        answer (Any): 
+        answer (Any):
             Return provided by the function.
 
     """
     def __init__(self, key, arg):
         self.time_start = time.time()
-        self.time_end : float = -1
-        self.time_run : float = -1
-        self.success : bool = False
-        self.timeout : bool = False
+        self.time_end: float = -1
+        self.time_run: float = -1
+        self.success: bool = False
+        self.timeout: bool = False
         self.key = key
         self.arg = arg
-        self.returncode : int = -1
-        self.stdout : str = None
-        self.stderr : str = None
-        self.answer : Any = None        # function returns (success, answer)
+        self.returncode: int | None = -1
+        self.stdout: str | None = None
+        self.stderr: str | None = None
+        self.answer: Any = None        # function returns (success, answer)
 
     def print(self):
         """ Testing: simple print attributes."""
