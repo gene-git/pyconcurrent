@@ -27,7 +27,13 @@ Key features
 New / Interesting
 ==================
 
-New release. 
+ * Asyncio now uses the recommended TaskGroup class together with 
+   the timeout() context manager. These were introduced in python 3.11. 
+   This newer approach is cleaner, more robust and ensures all tasks 
+   are appropriately cancelled in the event one task fails. It also offers
+   superior timeout capabilities.
+ * Timeout now works when using a caller provided function
+   in addition to subprocesses.
 
 ###############
 Getting Started
@@ -67,7 +73,7 @@ in the : *result.key*.
     async def main():
         """pargs can have additional arguments."""
         pargs = ['/usr/bin/sleep']       
-        tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+        tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
 
         proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)
         await proc_run.run_all()
@@ -87,7 +93,7 @@ and drop *await* since MP is not *async*. i.e.
 
     def main()
         pargs = ['/usr/bin/sleep']
-        tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+        tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
 
         proc_run = ProcRunMp(pargs, tasks, num_workers=4, timeout=30)
         proc_run.run_all()
@@ -122,7 +128,7 @@ are permitted to be run simultaneously.
 
     async def main():
         pargs = [test_func_async, 'dummy-arg']
-        tasks = [(1, 1), (2,7), (3,2), (4, 2), (5, 1)]
+        tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
 
         proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)
         await proc_run.run_all()

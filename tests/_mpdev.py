@@ -23,8 +23,8 @@ import asyncio
 parent_dir = os.path.abspath('../src')
 sys.path.insert(0, parent_dir)
 
-from pyconcurrent import ProcRunMp
-from pyconcurrent import ProcRunAsyncio
+from pyconcurrent import ProcRunMp              # noqa: E402
+from pyconcurrent import ProcRunAsyncio         # noqa: E402
 
 
 def test_func_mp(key: Any, args: Any) -> Tuple[bool, Dict[str, Any]]:
@@ -93,7 +93,7 @@ async def test_function_asyncio(num_workers: int = 5, timeout: int = 30):
     """ test function version."""
     print(' ======= function asyncio ========')
     pargs = [test_func_async, "arg1"]
-    tasks = [(1, 1), (2, 4), (3, 2), (4, 2), (5, 1)]
+    tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
 
     runner = ProcRunAsyncio(pargs, tasks, num_workers=num_workers,
                             timeout=timeout, verb=True)
@@ -106,7 +106,7 @@ def test_function_mp(num_workers: int = 5, timeout: int = 30):
     """ test function version."""
     print(' ======= function mp ========')
     pargs = [test_func_mp, "arg1"]
-    tasks = [(1, 1), (2, 4), (3, 2), (4, 2), (5, 1)]
+    tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
 
     runner = ProcRunMp(pargs, tasks, num_workers=num_workers,
                        timeout=timeout, verb=True)
@@ -180,13 +180,13 @@ async def main():
             test_subprocess_mp(num_workers=1, timeout=30)
 
         if tests.exec_sub and tests.timeout:
-            test_subprocess_mp(num_workers=5, timeout=5)
+            test_subprocess_mp(num_workers=5, timeout=3)
 
         if tests.function and tests.notimeout:
             test_function_mp(num_workers=5, timeout=0)
 
         if tests.function and tests.timeout:
-            test_function_mp(num_workers=5, timeout=5)
+            test_function_mp(num_workers=5, timeout=3)
 
         if tests.function and tests.serial:
             test_function_mp(num_workers=1, timeout=30)
@@ -196,7 +196,7 @@ async def main():
             await test_subprocess_asyncio(num_workers=5, timeout=30)
 
         if tests.exec_sub and tests.timeout:
-            await test_subprocess_asyncio(num_workers=5, timeout=5)
+            await test_subprocess_asyncio(num_workers=5, timeout=3)
 
         if tests.exec_sub and tests.serial:
             await test_subprocess_asyncio(num_workers=1, timeout=30)
@@ -205,7 +205,7 @@ async def main():
             await test_function_asyncio(num_workers=5, timeout=0)
 
         if tests.function and tests.timeout:
-            await test_function_asyncio(num_workers=5, timeout=5)
+            await test_function_asyncio(num_workers=5, timeout=3)
 
         if tests.function and tests.serial:
             await test_function_asyncio(num_workers=1, timeout=30)

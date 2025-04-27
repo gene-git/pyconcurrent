@@ -34,14 +34,16 @@ class ProcRunMp(ProcRun):
 
     def __init__(self,
                  pargs: List[Any],
-                 tasks: List[Tuple[Any, Any]],
+                 tasks_todo: List[Tuple[Any, Any]],
                  num_workers: int = 4,
                  timeout: int = 0,
                  verb: bool = False):
         """
         Basic Setup ahead of .run_all()
         """
-        super().__init__(pargs, tasks, MPType.MP, num_workers, timeout, verb)
+        super().__init__(pargs, tasks_todo, MPType.MP, num_workers,
+                         timeout, verb)
+
         if not ProcRunMp._start_method_set:
             multiprocessing.set_start_method('spawn', force=True)
             ProcRunMp._start_method_set = True
@@ -89,9 +91,19 @@ class ProcRunMp(ProcRun):
             res.success = success
             res.answer = answer
 
-        except RuntimeError:
+        except RuntimeError as err:
             res.success = False
             res.timeout = True
+            res.exception = type(err).__name__
+
+        except (KeyboardInterrupt, SystemExit) as err:
+            res.success = False
+            res.exception = type(err).__name__
+
+        except TimeoutError as err:
+            res.success = False
+            res.timeout = True
+            res.exception = type(err).__name__
 
         res.time_end = time.time()
         res.time_run = res.time_end - res.time_start
@@ -151,7 +163,7 @@ class ProcRunMp(ProcRun):
            Can also change to call subprocess directly.
         """
         task_one = self._get_task_one()
-        for task in self.tasks:
+        for task in self.tasks_todo:
             res = task_one(*task)
             self.result.append(res)
 
@@ -163,7 +175,7 @@ class ProcRunMp(ProcRun):
         """
         task_one = self._get_task_one()
         pool = multiprocessing.Pool(processes=self.num_workers)
-        self.result = pool.starmap(task_one, self.tasks)
+        self.result = pool.starmap(task_one, self.tasks_todo)
         pool.close()
 
     def run_all(self):

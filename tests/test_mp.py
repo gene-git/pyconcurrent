@@ -11,7 +11,7 @@ import time
 
 parent_dir = os.path.abspath('../src')
 sys.path.insert(0, parent_dir)
-from pyconcurrent import ProcRunMp
+from pyconcurrent import ProcRunMp              # noqa: E402
 
 
 def _func_mp(key, args) -> Tuple[bool, Dict[str, Any]]:
@@ -49,7 +49,9 @@ class TestMp:
         """ finalize and get result """
         num_success = sum(res.success for res in prun.result)
         time_taken = sum(res.time_run for res in prun.result)
-        self.all_ok = (num_success == num_success_target) and (time_taken <= self.time_max)
+        self.all_ok = ((num_success == num_success_target)
+                       and (time_taken <= self.time_max)
+                       )
         return self.all_ok
 
     def test_mp_subprocess(self):

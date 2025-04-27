@@ -12,7 +12,7 @@ import pytest
 
 parent_dir = os.path.abspath('../src')
 sys.path.insert(0, parent_dir)
-from pyconcurrent import ProcRunAsyncio
+from pyconcurrent import ProcRunAsyncio                 # noqa: E402
 
 
 async def _func_async(key, args) -> Tuple[bool, Dict[str, Any]]:
@@ -122,6 +122,6 @@ class TestAsyncio:
         prun = ProcRunAsyncio(pargs, tasks, num_workers=num, timeout=timeout)
         await prun.run_all()
 
-        num_success_target = len(tasks)
+        num_success_target = len(tasks) - 1
         all_ok = self._result(prun, num_success_target)
         assert all_ok

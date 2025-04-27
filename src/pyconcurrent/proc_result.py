@@ -48,6 +48,7 @@ class ProcResult:
         self.time_run: float = -1
         self.success: bool = False
         self.timeout: bool = False
+        self.exception: str|None = None
         self.key = key
         self.arg = arg
         self.returncode: int | None = -1
@@ -63,6 +64,7 @@ class ProcResult:
         print(f'  time_run          : {self.time_run:.1f}')
         print(f'  success           : {self.success}')
         print(f'  timeout           : {self.timeout}')
+        print(f'  exception         : {self.exception}')
         print(f'  arg               : {self.arg}')
         print(f'  returncode        : {self.returncode}')
         if self.stdout:
