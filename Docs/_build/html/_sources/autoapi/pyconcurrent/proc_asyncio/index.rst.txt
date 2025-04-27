@@ -14,7 +14,7 @@ pyconcurrent.proc_asyncio
 Module Contents
 ---------------
 
-.. py:class:: ProcRunAsyncio(pargs: List[Any], tasks: List[Tuple[Any, Any]], num_workers: int = 4, timeout: int = 0, verb: bool = False)
+.. py:class:: ProcRunAsyncio(pargs: List[Any], tasks_todo: List[Tuple[Any, Any]], num_workers: int = 4, timeout: int = 0, verb: bool = False)
 
 
 
@@ -28,20 +28,28 @@ Module Contents
        pargs ([Any]):
            The first element is the command/function to be run and remainder
            are any additional arguments.
-       tasks ([(Any, Any)]):
+
+       tasks_todo ([(Any, Any)]):
            List of task items to be run concurrently.
            Each task is a 2-tuple, *(key, arg)*.
-           Key is a unique identifier,and
-           arg is an additional argument to the routine when it is called.
+
+           - key is a unique identifier, converable to string via str(key)
+           - arg is an additional argument to the routine when it is called.
+
            Both key and arg are saved into the result class instance returned.
+
        num_workers (int):
            Max number of processes to use. Value of 0 is unlimited and 1 will
            mean each is run serially one at a time.
+
        timeout (int):
-           Applies to commands run as subprocesses. The maximum number of
-           seconds allotted to each process. If not complete, then process
-           will be killed and the result will have:
-               res.success set to *False* and res.timeout set to *True*.
+           The maximum number of seconds allotted to each process.
+           If not complete within "timeout", then process/function
+           will be cancelled/killed and the "result" instance will include:
+
+           - res.success set to *False*
+           - res.timeout set to *True*.
+
        verb (bool):
            If set to true, some additional information is sent to stdout.
 
@@ -64,6 +72,9 @@ Module Contents
 
 
       Start running all the provided commands/functions concurrently.
+
+      Awaitable, so caller is responsible for calling asyncio.run().
+      See run_all_start_asyncio() for non-awaitable version.
 
 
 

@@ -36,8 +36,10 @@ class ProcRunAsyncio(ProcRun):
         tasks_todo ([(Any, Any)]):
             List of task items to be run concurrently.
             Each task is a 2-tuple, *(key, arg)*.
-            - Key is a unique identifier, converable to string via str(key)
+
+            - key is a unique identifier, converable to string via str(key)
             - arg is an additional argument to the routine when it is called.
+
             Both key and arg are saved into the result class instance returned.
 
         num_workers (int):
@@ -48,6 +50,7 @@ class ProcRunAsyncio(ProcRun):
             The maximum number of seconds allotted to each process.
             If not complete within "timeout", then process/function
             will be cancelled/killed and the "result" instance will include:
+
             - res.success set to *False*
             - res.timeout set to *True*.
 
