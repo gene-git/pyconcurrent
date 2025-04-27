@@ -7,12 +7,32 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 1.5.0 (2025-04-26)
-	18 commits.
+	1.1.2 (2025-04-24) -> 2.0.2 (2025-04-27)
+	22 commits.
 
 Commits
 =======
 
+
+* 2025-04-27  : **2.0.2**
+
+::
+
+                API ref rst format
+                Fix typo in api reference
+
+* 2025-04-27  : **2.0.0**
+
+::
+
+                Asyncio now uses the recommended TaskGroup class together with
+                   the timeout() context manager. These were introduced in python 3.11.
+                   This newer approach is cleaner, more robust and ensures all tasks
+                   are appropriately cancelled in the event one task fails. It also offers
+                   superior timeout capabilities.
+                Timeout now works when using a caller provided function in addition to
+                subprocesses.
+ 2025-04-26     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-26  : **1.5.0**
 
