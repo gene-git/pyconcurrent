@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.0.2 (2025-04-27)
-	22 commits.
+	1.1.2 (2025-04-24) -> 2.1.0 (2025-04-30)
+	24 commits.
 
 Commits
 =======
 
+
+* 2025-04-30  : **2.1.0**
+
+::
+
+                Bug fix returning stdout string from subprocess
+ 2025-04-27     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-27  : **2.0.2**
 

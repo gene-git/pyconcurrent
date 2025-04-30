@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pyconcurrent &#8212; pyconcurrent 2.0.2 documentation</title>
+    <title>pyconcurrent &#8212; pyconcurrent 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
-    <script src="_static/documentation_options.js?v=c2377ec0"></script>
+    <script src="_static/documentation_options.js?v=20623aea"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -82,9 +82,11 @@ to verify the git tag.  You can also manually verify the signature</p>
 <p>Here are a couple of simple examples illustrating how the module can be used.</p>
 <p>This example uses asyncio and subprocesses to call an executable.
 <em>tasks</em> must be a list of <em>(key, arg)</em> pairs, 1 per task.</p>
-<p><em>key</em> is a unique identifier, used by calleer, one per task. <em>arg</em> is an additional argument
-for each task; typicall whatever work that task is responsible for.
-Each result returned contains both the <em>key</em> and the <em>arg</em> used by that task.</p>
+<p><em>key</em> is a unique identifier, used by caller, one per task. <em>arg</em> is an additional argument
+for each task; typically <em>arg</em> provides for whatever work that task is responsible for.
+Each <em>result</em> returned contains both the <em>key</em> and the <em>arg</em> used by that task,
+information about the success of the task as well as any outputs produced by the task.
+See <em>ProcResult</em> class for more detail.</p>
 <p>This example has 5 tasks to be run concurrently, at most 4 at a time. The results are
 available in the <em>proc_run.result</em>, which is a list of <em>ProcResult</em> items; one per task.
 Since the result order is not pre-defined, each task is identifiable by it’s <em>key</em> available
@@ -169,7 +171,7 @@ with <em>ProcRunMp</em> and drop any references to <strong>async/await</strong>.
 <p>The caller supplied function here, <em>test_func_async()</em>, must return a 2-tuple
 of <em>(success:bool, answer:Any)</em> where success should be <em>True</em> if function succeeded.</p>
 <p>The function may optionally raise a <em>RuntimeError</em> exception, but typically setting <em>success</em>
-is sufficient. If you are using execptions then please use this one.</p>
+is sufficient. If you are using exceptions then please use this one.</p>
 </section>
 </section>
 <section id="appendix">
