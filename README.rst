@@ -54,9 +54,11 @@ Here are a couple of simple examples illustrating how the module can be used.
 This example uses asyncio and subprocesses to call an executable.
 *tasks* must be a list of *(key, arg)* pairs, 1 per task. 
 
-*key* is a unique identifier, used by calleer, one per task. *arg* is an additional argument 
-for each task; typicall whatever work that task is responsible for. 
-Each result returned contains both the *key* and the *arg* used by that task.
+*key* is a unique identifier, used by caller, one per task. *arg* is an additional argument 
+for each task; typically *arg* provides for whatever work that task is responsible for. 
+Each *result* returned contains both the *key* and the *arg* used by that task, 
+information about the success of the task as well as any outputs produced by the task.
+See *ProcResult* class for more detail.
 
 This example has 5 tasks to be run concurrently, at most 4 at a time. The results are 
 available in the *proc_run.result*, which is a list of *ProcResult* items; one per task.
@@ -144,7 +146,7 @@ The caller supplied function here, *test_func_async()*, must return a 2-tuple
 of *(success:bool, answer:Any)* where success should be *True* if function succeeded.
 
 The function may optionally raise a *RuntimeError* exception, but typically setting *success*
-is sufficient. If you are using execptions then please use this one.
+is sufficient. If you are using exceptions then please use this one.
 
 ########
 Appendix

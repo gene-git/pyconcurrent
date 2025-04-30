@@ -138,6 +138,8 @@ class ProcRunAsyncio(ProcRun):
 
         pipe = asyncio.subprocess.PIPE
         timeout = self.timeout if self.timeout > 0 else None
+        stdout: bytes | None = None
+        stderr: bytes | None = None
         async with semaphore:
             try:
                 proc = await asyncio.create_subprocess_exec(*pargs_str,
@@ -147,7 +149,7 @@ class ProcRunAsyncio(ProcRun):
 
                 try:
                     async with asyncio.timeout(timeout):
-                        await proc.communicate()
+                        (stdout, stderr) = await proc.communicate()
 
                 except TimeoutError as err:
                     proc.kill()
@@ -176,15 +178,11 @@ class ProcRunAsyncio(ProcRun):
                     elif proc.returncode == 0:
                         res.success = True
 
-                    if proc.stdout:
-                        data = await proc.stdout.read()
-                        if data:
-                            res.stdout = data.decode('utf-8')
+                    if stdout:
+                        res.stdout = stdout.decode('utf-8')
 
-                    if proc.stderr:
-                        data = await proc.stderr.read()
-                        if data:
-                            res.stderr = data.decode('utf-8')
+                    if stderr:
+                        res.stderr = stderr.decode('utf-8')
 
             except (FileNotFoundError, PermissionError, OSError) as err:
                 res.success = False
