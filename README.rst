@@ -27,6 +27,7 @@ Key features
 New / Interesting
 ==================
 
+ * PEP 561: Mark module as typed. Now *mypy* run on code using this module will have the type hints.
  * Asyncio now uses the recommended TaskGroup class together with 
    the timeout() context manager. These were introduced in python 3.11. 
    This newer approach is cleaner, more robust and ensures all tasks 

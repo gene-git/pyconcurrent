@@ -11,15 +11,19 @@ license = "MIT"
 readme = "README.rst"
 keywords = []
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = []
 
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pyconcurrent"]
+include = [
+    "src/pyconcurrent",
+    "src/py.typed",
+]
 
 
 [[tool.hatch.envs.all.matrix]]
