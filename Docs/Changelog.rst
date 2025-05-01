@@ -7,12 +7,20 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.1.0 (2025-04-30)
-	24 commits.
+	1.1.2 (2025-04-24) -> 2.2.0 (2025-05-01)
+	26 commits.
 
 Commits
 =======
 
+
+* 2025-05-01  : **2.2.0**
+
+::
+
+                PEP 561 type hints (module users using mypy etc get type hints)
+                Update status to Production/Stable
+ 2025-04-30     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-04-30  : **2.1.0**
 
