@@ -1,9 +1,13 @@
 -------------------------------------------------------
  Changelog    : pyconcurrent
- Tags         : 1.5.0 ➙ 2.2.0
-              : 2025-04-26 ➙ 2025-05-01
+ Tags         : 2.0.0 ➙ 2.2.1
+              : 2025-04-27 ➙ 2025-05-03
               : 6 tags. See Docs for full changelog
 -------------------------------------------------------
+
+ 2025-05-03   : 2.2.1
+                pytests: reorganize a little. tests are unchanged
+ 2025-05-01     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
  2025-05-01   : 2.2.0
                 PEP 561 type hints (module users using mypy etc get type hints)
@@ -27,8 +31,3 @@
                 Timeout now works when using a caller provided function in addition to
                 subprocesses.
  2025-04-26     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
-
- 2025-04-26   : 1.5.0
-                Style per PEP-8, PEP-257 and PEP-484.
-                Bug fix with stdout/stderr returned for asyncio using subprocesses
-                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf

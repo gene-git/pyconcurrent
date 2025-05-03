@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.2.0 (2025-05-01)
-	26 commits.
+	1.1.2 (2025-04-24) -> 2.2.1 (2025-05-03)
+	28 commits.
 
 Commits
 =======
 
+
+* 2025-05-03  : **2.2.1**
+
+::
+
+                pytests: reorganize a little. tests are unchanged
+ 2025-05-01     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-05-01  : **2.2.0**
 
