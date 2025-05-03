@@ -22,7 +22,7 @@ dependencies = []
 packages = ["src/pyconcurrent"]
 include = [
     "src/pyconcurrent",
-    "src/py.typed",
+    "src/pyconcurrent/py.typed",
 ]
 
 

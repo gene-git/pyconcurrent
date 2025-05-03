@@ -2,15 +2,10 @@
 Test :
     ProcRunMp class using subprocesses.
 """
-# pylint: disable=wrong-import-position,attribute-defined-outside-init
-# pylint: disable=duplicate-code
+# pylint: disable=duplicate-code,too-few-public-methods
 from typing import (Any, Dict, Tuple)
-import os
-import sys
 import time
 
-parent_dir = os.path.abspath('../src')
-sys.path.insert(0, parent_dir)
 from pyconcurrent import ProcRunMp              # noqa: E402
 
 
@@ -32,11 +27,9 @@ def _func_mp(key, args) -> Tuple[bool, Dict[str, Any]]:
     return (success, answer)
 
 
-class TestMp:
-    """
-    Tests ProcRunMp with and without a timeout case.
-    """
-    def _prepare(self, pargs, tasks, timeout, num):
+class _TestData:
+    """ container for test data """
+    def __init__(self, pargs, tasks, timeout, num):
         """ set up the test """
         self.pargs = pargs
         self.tasks = tasks
@@ -45,14 +38,20 @@ class TestMp:
         self.time_max = self.timeout + sum(x[1] for x in self.tasks)
         self.all_ok = False
 
-    def _result(self, prun, num_success_target):
+
+class TestMp:
+    """
+    Tests ProcRunMp with and without a timeout case.
+    """
+
+    def _result(self, tdata, prun, num_success_target):
         """ finalize and get result """
         num_success = sum(res.success for res in prun.result)
         time_taken = sum(res.time_run for res in prun.result)
-        self.all_ok = ((num_success == num_success_target)
-                       and (time_taken <= self.time_max)
-                       )
-        return self.all_ok
+        all_ok = (num_success == num_success_target and
+                  time_taken <= tdata.time_max
+                  )
+        return all_ok
 
     def test_mp_subprocess(self):
         """
@@ -62,13 +61,13 @@ class TestMp:
         tasks = [(1, 1), (2, 4), (3, 2)]
         timeout = 10
         num = 5
-        self._prepare(pargs, tasks, timeout, num)
+        tdata = _TestData(pargs, tasks, timeout, num)
 
         prun = ProcRunMp(pargs, tasks, num_workers=num, timeout=timeout)
         prun.run_all()
 
         num_success_target = len(tasks)
-        all_ok = self._result(prun, num_success_target)
+        all_ok = self._result(tdata, prun, num_success_target)
         assert all_ok
 
     def test_mp_subprocess_timeout(self):
@@ -79,13 +78,13 @@ class TestMp:
         tasks = [(1, 1), (2, 10), (3, 2)]
         timeout = 5
         num = 5
-        self._prepare(pargs, tasks, timeout, num)
+        tdata = _TestData(pargs, tasks, timeout, num)
 
         prun = ProcRunMp(pargs, tasks, num_workers=num, timeout=timeout)
         prun.run_all()
 
         num_success_target = len(tasks) - 1
-        all_ok = self._result(prun, num_success_target)
+        all_ok = self._result(tdata, prun, num_success_target)
         assert all_ok
 
     def test_mp_func(self):
@@ -96,13 +95,13 @@ class TestMp:
         tasks = [(1, 1), (2, 4), (3, 2)]
         timeout = 10
         num = 5
-        self._prepare(pargs, tasks, timeout, num)
+        tdata = _TestData(pargs, tasks, timeout, num)
 
         prun = ProcRunMp(pargs, tasks, num_workers=num, timeout=timeout)
         prun.run_all()
 
         num_success_target = len(tasks)
-        all_ok = self._result(prun, num_success_target)
+        all_ok = self._result(tdata, prun, num_success_target)
         assert all_ok
 
     def test_mp_func_timeout(self):
@@ -113,11 +112,11 @@ class TestMp:
         tasks = [(1, 1), (2, 10), (3, 2)]
         timeout = 5
         num = 5
-        self._prepare(pargs, tasks, timeout, num)
+        tdata = _TestData(pargs, tasks, timeout, num)
 
         prun = ProcRunMp(pargs, tasks, num_workers=num, timeout=timeout)
         prun.run_all()
 
         num_success_target = len(tasks)
-        all_ok = self._result(prun, num_success_target)
+        all_ok = self._result(tdata, prun, num_success_target)
         assert all_ok
