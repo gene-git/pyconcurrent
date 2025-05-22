@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.2.3 (2025-05-19)
-	32 commits.
+	1.1.2 (2025-04-24) -> 2.3.0 (2025-05-21)
+	34 commits.
 
 Commits
 =======
 
+
+* 2025-05-21  : **2.3.0**
+
+::
+
+                Use builtin types where possible. e.g. typing.List -> list
+ 2025-05-19     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-05-19  : **2.2.3**
 

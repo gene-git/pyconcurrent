@@ -14,7 +14,7 @@ pyconcurrent.proc_mp
 Module Contents
 ---------------
 
-.. py:class:: ProcRunMp(pargs: List[Any], tasks_todo: List[Tuple[Any, Any]], num_workers: int = 4, timeout: int = 0, verb: bool = False)
+.. py:class:: ProcRunMp(pargs: list[Any], tasks_todo: list[tuple[Any, Any]], num_workers: int = 4, timeout: int = 0, verb: bool = False)
 
 
 
