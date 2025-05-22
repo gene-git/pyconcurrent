@@ -8,7 +8,8 @@ Concurrent tasks using asyncio.
 # pylint: disable=duplicate-code
 
 
-from typing import (Any, Callable, List, Tuple)
+from typing import (Any)
+from collections.abc import Callable
 import time
 import asyncio
 
@@ -34,7 +35,7 @@ class ProcRunAsyncio(ProcRun):
             are any additional arguments.
 
         tasks_todo ([(Any, Any)]):
-            List of task items to be run concurrently.
+            list of task items to be run concurrently.
             Each task is a 2-tuple, *(key, arg)*.
 
             - key is a unique identifier, converable to string via str(key)
@@ -59,14 +60,14 @@ class ProcRunAsyncio(ProcRun):
 
     Attributes:
         result (*[ProcResult]*):
-            List of results, one per task. See ProcResult for more detail.
+            list of results, one per task. See ProcResult for more detail.
 
     Methods:
 
     """
     def __init__(self,
-                 pargs: List[Any],
-                 tasks_todo: List[Tuple[Any, Any]],
+                 pargs: list[Any],
+                 tasks_todo: list[tuple[Any, Any]],
                  num_workers: int = 4,
                  timeout: int = 0,
                  verb: bool = False):

@@ -6,7 +6,7 @@ Run process with timeout.
 # pylint: disable=too-many-instance-attributes,too-few-public-methods
 # pylint: disable=too-many-arguments,too-many-positional-arguments
 
-from typing import (Any, List, Tuple)
+from typing import (Any)
 import time
 
 from .proc_result import ProcResult
@@ -25,8 +25,8 @@ class ProcRun:
     Base Class used by ProcRunMP / ProcRunAsyncio.
     """
     def __init__(self,
-                 pargs: List[Any],
-                 tasks_todo: List[Tuple[Any, Any]],
+                 pargs: list[Any],
+                 tasks_todo: list[tuple[Any, Any]],
                  mp_type: MPType,
                  num_workers: int = 4,
                  timeout: int = 0,
@@ -41,7 +41,7 @@ class ProcRun:
         self.num_workers = num_workers
         self.pargs = pargs
         self.tasks_todo = tasks_todo
-        self.result: List[ProcResult] = []
+        self.result: list[ProcResult] = []
         self.timeout = timeout
         self.mp_type = mp_type
         self.call_type: CallType = CallType.EXEC

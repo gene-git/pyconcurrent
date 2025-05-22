@@ -3,13 +3,13 @@ Test :
     ProcRunMp class using subprocesses.
 """
 # pylint: disable=duplicate-code,too-few-public-methods
-from typing import (Any, Dict, Tuple)
+from typing import (Any)
 import time
 
 from pyconcurrent import ProcRunMp              # noqa: E402
 
 
-def _func_mp(key, args) -> Tuple[bool, Dict[str, Any]]:
+def _func_mp(key, args) -> tuple[bool, dict[str, Any]]:
     """
     Async test function.
     """

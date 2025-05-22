@@ -48,7 +48,7 @@ class ProcResult:
         self.time_run: float = -1
         self.success: bool = False
         self.timeout: bool = False
-        self.exception: str|None = None
+        self.exception: str | None = None
         self.key = key
         self.arg = arg
         self.returncode: int | None = -1

@@ -3,14 +3,14 @@ Test :
     ProcRunAsyncio class using subprocesses.
 """
 # pylint: disable=duplicate-code,too-few-public-methods
-from typing import (Any, Dict, Tuple)
+from typing import (Any)
 import asyncio
 import pytest
 
 from pyconcurrent import ProcRunAsyncio                 # noqa: E402
 
 
-async def _func_async(key, args) -> Tuple[bool, Dict[str, Any]]:
+async def _func_async(key, args) -> tuple[bool, dict[str, Any]]:
     """
     Async test function.
     """

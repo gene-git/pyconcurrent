@@ -13,7 +13,7 @@ Test harness for ProcRunn
 
 """
 # pylint: disable=too-many-branches,wrong-import-position
-from typing import (Any, Dict, Tuple)
+from typing import (Any)
 from dataclasses import dataclass
 import os
 import sys
@@ -27,7 +27,7 @@ from pyconcurrent import ProcRunMp              # noqa: E402
 from pyconcurrent import ProcRunAsyncio         # noqa: E402
 
 
-def test_func_mp(key: Any, args: Any) -> Tuple[bool, Dict[str, Any]]:
+def test_func_mp(key: Any, args: Any) -> tuple[bool, dict[str, Any]]:
     """
     Must return 2-tuple (success, result).
     """
@@ -47,7 +47,7 @@ def test_func_mp(key: Any, args: Any) -> Tuple[bool, Dict[str, Any]]:
     return (success, answer)
 
 
-async def test_func_async(key, args) -> Tuple[bool, Dict[str, Any]]:
+async def test_func_async(key, args) -> tuple[bool, dict[str, Any]]:
     """
     Must return 2-tuple (success, result).
     """

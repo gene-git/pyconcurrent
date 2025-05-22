@@ -8,7 +8,8 @@ Concurrent tasks using multiprocessing.
 # pylint: disable=consider-using-with
 # pylint: disable=duplicate-code
 
-from typing import (Any, Callable, List, Tuple)
+from typing import (Any)
+from collections.abc import Callable
 import time
 import subprocess
 import multiprocessing
@@ -33,8 +34,8 @@ class ProcRunMp(ProcRun):
     _start_method_set = False
 
     def __init__(self,
-                 pargs: List[Any],
-                 tasks_todo: List[Tuple[Any, Any]],
+                 pargs: list[Any],
+                 tasks_todo: list[tuple[Any, Any]],
                  num_workers: int = 4,
                  timeout: int = 0,
                  verb: bool = False):
