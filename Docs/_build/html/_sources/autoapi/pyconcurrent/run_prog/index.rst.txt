@@ -14,7 +14,7 @@ pyconcurrent.run_prog
 Module Contents
 ---------------
 
-.. py:function:: run_prog(pargs: list[str], input_str: str | None = None, stdout: int = subprocess.PIPE, stderr: int = subprocess.PIPE, env: dict[str, str] | None = None, test: bool = False, verb: bool = False) -> Tuple[int, str, str]
+.. py:function:: run_prog(pargs: list[str], input_str: str | None = None, stdout: int = subprocess.PIPE, stderr: int = subprocess.PIPE, env: dict[str, str] | None = None, test: bool = False, verb: bool = False) -> tuple[int, str, str]
 
    Run external program using subprocess.
 
@@ -49,12 +49,12 @@ Module Contents
            Flag - only used with test == True - prints pargs.
 
    Returns:
-       Tuple[retc: int, stdout: str, stderr: str]:
+       tuple[retc: int, stdout: str, stderr: str]:
            retc is 0 when all is well.
            stdout is what the subprocess returns on it's stdout
            and stderr is what it's stderr return.
 
-   Note that any input string is written in it's entirety in one 
+   Note that any input string is written in it's entirety in one
    shot to the subprocess. This should not be a problem.
 
 

@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.4.0 (2025-06-17)
-	36 commits.
+	1.1.2 (2025-04-24) -> 2.4.1 (2025-06-17)
+	38 commits.
 
 Commits
 =======
 
+
+* 2025-06-17  : **2.4.1**
+
+::
+
+                PEP-484 use builtin tuple instead of Tuple
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-06-17  : **2.4.0**
 
