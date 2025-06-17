@@ -3,10 +3,10 @@
 """
 External program execution
 """
-# pylint: disable=too-many-arguments,too-many-positional-arguments
-# pylint: disable=too-many-locals,too-many-branches
+# pylint: disable=too-many-arguments, too-many-positional-arguments
+# pylint: disable=too-many-locals, too-many-branches, too-many-statements
 # pylint: disable=consider-using-with
-from typing import (IO, Tuple)
+from typing import (IO)
 import os
 import fcntl
 import io
@@ -22,7 +22,7 @@ def run_prog(pargs: list[str],
              env: dict[str, str] | None = None,
              test: bool = False,
              verb: bool = False,
-             ) -> Tuple[int, str, str]:
+             ) -> tuple[int, str, str]:
     """
     Run external program using subprocess.
 
@@ -57,12 +57,12 @@ def run_prog(pargs: list[str],
             Flag - only used with test == True - prints pargs.
 
     Returns:
-        Tuple[retc: int, stdout: str, stderr: str]:
+        tuple[retc: int, stdout: str, stderr: str]:
             retc is 0 when all is well.
             stdout is what the subprocess returns on it's stdout
             and stderr is what it's stderr return.
-    
-    Note that any input string is written in it's entirety in one 
+
+    Note that any input string is written in it's entirety in one
     shot to the subprocess. This should not be a problem.
     """
     if not pargs:
@@ -99,8 +99,8 @@ def run_prog(pargs: list[str],
 
     #
     # Wait for it to complete
-    # - we handle large output buffers by using non-blocking IO 
-    #   and select() along with reading buffer/pipe to ensure 
+    # - we handle large output buffers by using non-blocking IO
+    #   and select() along with reading buffer/pipe to ensure
     #   it never fills up and blocks.
     #   Without this, larger output can hang hwne IO buffer is full.
     #
