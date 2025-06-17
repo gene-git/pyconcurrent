@@ -1,0 +1,60 @@
+pyconcurrent.run_prog
+=====================
+
+.. py:module:: pyconcurrent.run_prog
+
+.. autoapi-nested-parse::
+
+   External program execution
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:function:: run_prog(pargs: list[str], input_str: str | None = None, stdout: int = subprocess.PIPE, stderr: int = subprocess.PIPE, env: dict[str, str] | None = None, test: bool = False, verb: bool = False) -> Tuple[int, str, str]
+
+   Run external program using subprocess.
+
+   Take care to handle large outputs (default buffer size
+   is 8k). This avoids possible hangs should IO buffer fill up.
+
+   non-blocking IO together with select() loop provides
+   a robust methodology.
+
+   Args:
+       pargs (list[str]):
+           The command + arguments to be run in standard list format.
+           e.g. ['/usr/bin/sleep', '22'].
+
+       input_str (str | None):
+           Optional input to be fed to subprocess stdin.  Defaults to None.
+
+       stdout (int):
+           Subprocess stdout. Defaults to subprocess.PIPE
+
+       stderr (int):
+           Subprocess stderr. Defaults to subprocess.PIPE
+
+       env (None | dict[str, str]):
+           Optional to specify environment for subprocess to use.
+           If not set, inherits from calling process as usual.
+
+       test (bool):
+           Flag - if true dont actually run anything.
+
+       verb (bool):
+           Flag - only used with test == True - prints pargs.
+
+   Returns:
+       Tuple[retc: int, stdout: str, stderr: str]:
+           retc is 0 when all is well.
+           stdout is what the subprocess returns on it's stdout
+           and stderr is what it's stderr return.
+
+   Note that any input string is written in it's entirety in one 
+   shot to the subprocess. This should not be a problem.
+
+

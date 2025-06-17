@@ -27,6 +27,8 @@ Key features
 New / Interesting
 ==================
 
+ * New function run_prog() to run external command. Strictly speaking, this has nothing to do with 
+   concurrency, but doing this robustly can be a little tricky. So it is included here.
  * PEP 561: Mark module as typed. Now *mypy* run on code using this module will have the type hints.
  * Asyncio now uses the recommended TaskGroup class together with 
    the timeout() context manager. These were introduced in python 3.11. 
@@ -51,6 +53,9 @@ pyconcurrent module
 Please see the API reference for additional details.
 
 Here are a couple of simple examples illustrating how the module can be used.
+
+Example 1a: Asyncio
+-------------------
 
 This example uses asyncio and subprocesses to call an executable.
 *tasks* must be a list of *(key, arg)* pairs, 1 per task. 
@@ -85,6 +90,9 @@ in the : *result.key*.
     if __name__ == '__main__':
         asyncio.run(main())
 
+Example 1b: Multiprocessing
+---------------------------
+
 To switch to *multiprocessing* simply replace *ProcRunAsyncio* with  *ProcRunMp*, 
 and drop *await* since MP is not *async*. i.e.
 
@@ -104,6 +112,9 @@ and drop *await* since MP is not *async*. i.e.
 
     if __name__ == '__main__':
         main()
+
+Example 2: Asnycio
+------------------
 
 The next example uses a caller supplied function together with asyncio. As in the first
 example, there are 5 tasks to do and the number of workers is 4, so that 4 tasks 
@@ -148,6 +159,34 @@ of *(success:bool, answer:Any)* where success should be *True* if function succe
 
 The function may optionally raise a *RuntimeError* exception, but typically setting *success*
 is sufficient. If you are using exceptions then please use this one.
+
+Example 3: Non-concurrent
+-------------------------
+
+This one shows a non-concurrent external program being executed.
+
+ .. code-block:: python
+
+    #!/usr/bin/python
+
+    from pyconcurrent import run_prog
+
+    def main()
+        pargs_good = ['/usr/bin/sleep', '1']
+        pargs_bad = ['/usr/bin/false']
+
+        for pargs in [pargs_good] + [pargs_bad]:
+            print(f'Testing: {pargs}:')
+            (ret, stdout, stderr) = run_prog(pargs)
+            if ret == 0:
+                print('\tAll well')
+                print(stdout)
+            else:
+                print('\tFailed')
+                print(stderr)
+
+    if __name__ == '__main__':
+        main()
 
 ########
 Appendix

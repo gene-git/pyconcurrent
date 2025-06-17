@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.3.0 (2025-05-21)
-	34 commits.
+	1.1.2 (2025-04-24) -> 2.4.0 (2025-06-17)
+	36 commits.
 
 Commits
 =======
 
+
+* 2025-06-17  : **2.4.0**
+
+::
+
+                New function run_prog() to run external command.
+ 2025-05-21     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-05-21  : **2.3.0**
 
