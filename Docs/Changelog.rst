@@ -7,12 +7,20 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.5.0 (2025-06-19)
-	40 commits.
+	1.1.2 (2025-04-24) -> 2.6.0 (2025-06-19)
+	42 commits.
 
 Commits
 =======
 
+
+* 2025-06-19  : **2.6.0**
+
+::
+
+                run_prog: When writing to subprocess stdin, add a flush() before we close
+                the file object
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-06-19  : **2.5.0**
 
