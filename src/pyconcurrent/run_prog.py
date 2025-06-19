@@ -212,8 +212,8 @@ def _wait_for_proc(bstring: bytes | None,
 
             try:
                 if has_stdin and proc.stdin and proc.stdin in write_ready:
-                    # todo handle writing large buffers w/o blocking.
                     proc.stdin.write(bstring)
+                    proc.stdin.flush()
                     proc.stdin.close()
                     has_stdin = False
 
