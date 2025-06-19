@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.4.1 (2025-06-17)
-	38 commits.
+	1.1.2 (2025-04-24) -> 2.5.0 (2025-06-19)
+	40 commits.
 
 Commits
 =======
 
+
+* 2025-06-19  : **2.5.0**
+
+::
+
+                run_prog: make stdin nonblock as well
+ 2025-06-17     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-06-17  : **2.4.1**
 
