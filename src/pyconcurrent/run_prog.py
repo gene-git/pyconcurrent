@@ -166,16 +166,27 @@ def _wait_for_proc(bstring: bytes | None,
     has_stderr = True
     has_stdin = bool(bstring)
 
-    if proc.stdout:
-        fcntl.fcntl(proc.stdout, fcntl.F_SETFL, os.O_NONBLOCK)
+    try:
+        if proc.stdin:
+            fcntl.fcntl(proc.stdin, fcntl.F_SETFL, os.O_NONBLOCK)
 
-    if proc.stderr:
-        fcntl.fcntl(proc.stderr, fcntl.F_SETFL, os.O_NONBLOCK)
+        if proc.stdout:
+            fcntl.fcntl(proc.stdout, fcntl.F_SETFL, os.O_NONBLOCK)
+
+        if proc.stderr:
+            fcntl.fcntl(proc.stderr, fcntl.F_SETFL, os.O_NONBLOCK)
+
+    except OSError as err:
+        # Should not happen. Cross fingers and keep going.
+        print(f'Error setting NONBLOCK: {err}')
 
     data_pending = bool(has_stdout or has_stderr or has_stdin)
 
     while returncode is None or data_pending:
         returncode = proc.poll()
+
+        if returncode:
+            continue
 
         readlist: list[int | IO] = []
         if has_stdout and proc.stdout:
