@@ -14,7 +14,7 @@ import subprocess
 from subprocess import SubprocessError
 
 
-class ProcWaitInfo:
+class _ProcWaitInfo:
     """
     Little Data class used while waiting process to complete
     """
@@ -236,7 +236,7 @@ def _wait_for_proc(bstring: bytes | None,
     if not proc:
         return (-1, '', 'process not started by popen - giving up')
 
-    pwi = ProcWaitInfo(proc, bstring)
+    pwi = _ProcWaitInfo(proc, bstring)
     returncode = proc.returncode
     all_done: bool = False
 
@@ -276,12 +276,12 @@ def _wait_for_proc(bstring: bytes | None,
     return (retc, output, errors)
 
 
-def _check_for_data(pwi: ProcWaitInfo, timeout: int) -> tuple[bool, str, str]:
+def _check_for_data(pwi: _ProcWaitInfo, timeout: int) -> tuple[bool, str, str]:
     """
     Check if have any data.
 
     Args:
-        pwi (ProcWaitInfo):
+        pwi (_ProcWaitInfo):
             The info needed to wait on any data
 
         timeout (int):
