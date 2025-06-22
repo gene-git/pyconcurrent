@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.7.0 (2025-06-22)
-	44 commits.
+	1.1.2 (2025-04-24) -> 2.8.0 (2025-06-22)
+	46 commits.
 
 Commits
 =======
 
+
+* 2025-06-22  : **2.8.0**
+
+::
+
+                run_prog - make internal helper class internal so not included in API ref
+                update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-06-22  : **2.7.0**
 

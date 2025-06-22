@@ -11,33 +11,8 @@ pyconcurrent.run_prog
 
 
 
-
-
 Module Contents
 ---------------
-
-.. py:class:: ProcWaitInfo(proc: subprocess.Popen, bstring: bytes | None)
-
-   Little Data class used while waiting process to complete
-
-
-   .. py:method:: is_data_pending()
-
-      Any more data
-
-
-
-   .. py:method:: nonblock()
-
-      Mark IO channels non-blocking
-
-
-
-   .. py:method:: update_select_iolists()
-
-      Update read/write lists for select
-
-
 
 .. py:function:: run_prog(pargs: list[str], input_str: str | None = None, stdout: int = subprocess.PIPE, stderr: int = subprocess.PIPE, env: dict[str, str] | None = None, test: bool = False, verb: bool = False) -> tuple[int, str, str]
 
