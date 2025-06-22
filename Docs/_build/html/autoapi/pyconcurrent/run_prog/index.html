@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pyconcurrent.run_prog &#8212; pyconcurrent 2.6.0 documentation</title>
+    <title>pyconcurrent.run_prog &#8212; pyconcurrent 2.7.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-    <script src="../../../_static/documentation_options.js?v=ae39cb24"></script>
+    <script src="../../../_static/documentation_options.js?v=dfec817d"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -39,6 +39,30 @@
 <p>External program execution</p>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyconcurrent.run_prog.ProcWaitInfo">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProcWaitInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">subprocess.Popen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bstring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyconcurrent.run_prog.ProcWaitInfo" title="Link to this definition">¶</a></dt>
+<dd><p>Little Data class used while waiting process to complete</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyconcurrent.run_prog.ProcWaitInfo.is_data_pending">
+<span class="sig-name descname"><span class="pre">is_data_pending</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyconcurrent.run_prog.ProcWaitInfo.is_data_pending" title="Link to this definition">¶</a></dt>
+<dd><p>Any more data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyconcurrent.run_prog.ProcWaitInfo.nonblock">
+<span class="sig-name descname"><span class="pre">nonblock</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyconcurrent.run_prog.ProcWaitInfo.nonblock" title="Link to this definition">¶</a></dt>
+<dd><p>Mark IO channels non-blocking</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyconcurrent.run_prog.ProcWaitInfo.update_select_iolists">
+<span class="sig-name descname"><span class="pre">update_select_iolists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyconcurrent.run_prog.ProcWaitInfo.update_select_iolists" title="Link to this definition">¶</a></dt>
+<dd><p>Update read/write lists for select</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="pyconcurrent.run_prog.run_prog">
 <span class="sig-name descname"><span class="pre">run_prog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">subprocess.PIPE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">subprocess.PIPE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyconcurrent.run_prog.run_prog" title="Link to this definition">¶</a></dt>

@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.6.0 (2025-06-19)
-	42 commits.
+	1.1.2 (2025-04-24) -> 2.7.0 (2025-06-22)
+	44 commits.
 
 Commits
 =======
 
+
+* 2025-06-22  : **2.7.0**
+
+::
+
+                run_prog: refactor code. Protect against one possible deadlock
+ 2025-06-19     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-06-19  : **2.6.0**
 
