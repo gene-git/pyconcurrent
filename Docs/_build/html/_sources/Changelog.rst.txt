@@ -7,12 +7,19 @@ Tags
 
 ::
 
-	1.1.2 (2025-04-24) -> 2.8.0 (2025-06-22)
-	46 commits.
+	1.1.2 (2025-04-24) -> 2.9.0 (2025-06-26)
+	48 commits.
 
 Commits
 =======
 
+
+* 2025-06-26  : **2.9.0**
+
+::
+
+                run_prog: Make sure iolists are updated before calling select()
+ 2025-06-22     update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2025-06-22  : **2.8.0**
 
