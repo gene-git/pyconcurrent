@@ -14,29 +14,30 @@ can either be an executable which is run as a subprocess or a python function to
 Key features
 ============
 
- * Provides two classes to do the work:
-   *ProcRunAsyncio* and *ProcRunMp*
+* Provides two classes to do the work:
+  *ProcRunAsyncio* and *ProcRunMp*
 
- * Results are provided by the *results* attribute in each class. 
-   This is a list of *ProcResults*; one per run.
+* Results are provided by the *results* attribute in each class. 
+  This is a list of *ProcResults*; one per run.
 
- * Documentation includes the API reference.
+* Documentation includes the API reference.
 
- * pytest classes validate that all functionality works as it should.
+* pytest classes validate that all functionality works as it should.
 
 New / Interesting
 ==================
 
- * New function run_prog() to run external command. Strictly speaking, this has nothing to do with 
-   concurrency, but doing this robustly can be a little tricky. So it is included here.
- * PEP 561: Mark module as typed. Now *mypy* run on code using this module will have the type hints.
- * Asyncio now uses the recommended TaskGroup class together with 
-   the timeout() context manager. These were introduced in python 3.11. 
-   This newer approach is cleaner, more robust and ensures all tasks 
-   are appropriately cancelled in the event one task fails. It also offers
-   superior timeout capabilities.
- * Timeout now works when using a caller provided function
-   in addition to subprocesses.
+* switch python packaging from hatch to uv.
+* New function run_prog() to run external command. Strictly speaking, this has nothing to do with 
+  concurrency, but doing this robustly can be a little tricky. So it is included here.
+* PEP 561: Mark module as typed. Now *mypy* run on code using this module will have the type hints.
+* Asyncio now uses the recommended TaskGroup class together with 
+  the timeout() context manager. These were introduced in python 3.11. 
+  This newer approach is cleaner, more robust and ensures all tasks 
+  are appropriately cancelled in the event one task fails. It also offers
+  superior timeout capabilities.
+* Timeout now works when using a caller provided function
+  in addition to subprocesses.
 
 ###############
 Getting Started
@@ -71,24 +72,10 @@ available in the *proc_run.result*, which is a list of *ProcResult* items; one p
 Since the result order is not pre-defined, each task is identifiable by it's *key* available 
 in the : *result.key*.
 
- .. code-block:: python
+.. literalinclude:: examples/example_1a.py
+   :language: python
+   :caption: Example 1a
 
-    #!/usr/bin/python
-
-    import asyncio
-    from pyconcurrent import ProcRunAsyncio
-
-    async def main():
-        """pargs can have additional arguments."""
-        pargs = ['/usr/bin/sleep']       
-        tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
-
-        proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)
-        await proc_run.run_all()
-        proc_run.print_results()
-
-    if __name__ == '__main__':
-        asyncio.run(main())
 
 Example 1b: Multiprocessing
 ---------------------------
@@ -96,22 +83,9 @@ Example 1b: Multiprocessing
 To switch to *multiprocessing* simply replace *ProcRunAsyncio* with  *ProcRunMp*, 
 and drop *await* since MP is not *async*. i.e.
 
- .. code-block:: python
-
-    #!/usr/bin/python
-
-    from pyconcurrent import ProcRunMp
-
-    def main()
-        pargs = ['/usr/bin/sleep']
-        tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
-
-        proc_run = ProcRunMp(pargs, tasks, num_workers=4, timeout=30)
-        proc_run.run_all()
-        proc_run.print_results()
-
-    if __name__ == '__main__':
-        main()
+.. literalinclude:: examples/example_1b.py
+   :language: python
+   :caption: Example 1b
 
 Example 2: Asnycio
 ------------------
@@ -120,36 +94,9 @@ The next example uses a caller supplied function together with asyncio. As in th
 example, there are 5 tasks to do and the number of workers is 4, so that 4 tasks 
 are permitted to be run simultaneously.
 
- .. code-block:: python
-    
-    #!/usr/bin/python
-
-    import asyncio
-    from pyconcurrent import ProcRunAsyncio
-
-    async def test_func_async(key, args) -> (bool, []):
-        """return 2-tuple (success, result)."""
-        success = True
-        nap = args[-1]              # pull off the last argument
-        await asyncio.sleep(nap)
-        answer = {
-                'key' : key,
-                'args' : args,
-                'success' : success,
-                'result' : 'test_func done',
-              }
-        return (success, answer)
-
-    async def main():
-        pargs = [test_func_async, 'dummy-arg']
-        tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
-
-        proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)
-        await proc_run.run_all()
-        proc_run.print_results()
-
-    if __name__ == '__main__':
-        asyncio.run(main())
+.. literalinclude:: examples/example_2.py
+   :language: python
+   :caption: Example 2
 
 For equivalent multiprocessor version for this one, same as above, simply replace *ProcRunAsyncio* 
 with *ProcRunMp* and drop any references to **async/await**.
@@ -165,28 +112,10 @@ Example 3: Non-concurrent
 
 This one shows a non-concurrent external program being executed.
 
- .. code-block:: python
+.. literalinclude:: examples/example_3.py
+   :language: python
+   :caption: Example 3
 
-    #!/usr/bin/python
-
-    from pyconcurrent import run_prog
-
-    def main()
-        pargs_good = ['/usr/bin/sleep', '1']
-        pargs_bad = ['/usr/bin/false']
-
-        for pargs in [pargs_good] + [pargs_bad]:
-            print(f'Testing: {pargs}:')
-            (ret, stdout, stderr) = run_prog(pargs)
-            if ret == 0:
-                print('\tAll well')
-                print(stdout)
-            else:
-                print('\tFailed')
-                print(stderr)
-
-    if __name__ == '__main__':
-        main()
 
 ########
 Appendix
@@ -229,29 +158,27 @@ Dependencies
 
 **Building Package** :
 
- * git
- * hatch           (aka python-hatch)
- * wheel           (aka python-wheel)
- * build           (aka python-build)
- * installer       (aka python-installer)
- * rsync
- * pytest          (aka python-pytest)
- * pytest-asyncio  (aka python-pytest-asyncio)
+* git
+* uv
+* uv_build        (aka python-uv-build)
+* rsync
+* pytest          (aka python-pytest)
+* pytest-asyncio  (aka python-pytest-asyncio)
 
 **Optional for building docs** :
 
- * sphinx
- * myst-parser      (aka python-myst-parser)
- * sphinx-autoapi   (aka python-sphinx-autoapi)
- * texlive-latexextra (archlinux packaging of texlive tools)
+* sphinx
+* myst-parser      (aka python-myst-parser)
+* sphinx-autoapi   (aka python-sphinx-autoapi)
+* texlive-latexextra (archlinux packaging of texlive tools)
 
 Philosophy
 ==========
 
-We follow the *live at head commit* philosophy. This means we recommend using the
-latest commit on git master branch. We also provide git tags. 
+We follow the *live at head commit* philosophy as recommended by
+Google's Abseil team [1]_.  This means we recommend using the
+latest commit on git master branch. 
 
-This approach is also taken by Google [1]_ [2]_.
 
 License
 =======
@@ -264,7 +191,6 @@ Created by Gene C. and licensed under the terms of the MIT license.
 .. _Github: https://github.com/gene-git/pyconcurrent
 .. _Archlinux AUR: https://aur.archlinux.org/packages/pyconcurrent
 
-.. [1] https://github.com/google/googletest  
-.. [2] https://abseil.io/about/philosophy#upgrade-support
+.. [1] https://abseil.io/about/philosophy#upgrade-support
 
 

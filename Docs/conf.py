@@ -9,7 +9,7 @@
 project = "pyconcurrent"
 copyright = '2025, Gene C'
 author = 'Gene C'
-release = '2.9.0'
+release = "2.10.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -25,7 +25,7 @@ add_module_names = False
 autoapi_member_order = 'groupwise'
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.mypy_cache', '__pycache__', 'Changelog.rst', 'Misc/*.rst']
 
 def skip_submodules(app, what, name, obj, skip, options):
     skip = True
