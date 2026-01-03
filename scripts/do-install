@@ -20,6 +20,14 @@ licensedir="/usr/share/licenses/${self}"
 sitedir=$(/usr/bin/python3 -c "import site; print(site.getsitepackages()[0])")
 installdir="${dest}${sitedir}"
 
+uv_opts=(
+    --python /usr/bin/python
+    --system
+    --no-build-isolation
+    --link-mode=copy
+    --compile-bytecode
+)
+
 if [ ! -d "$dest" ] ; then
     echo 'Missing destination directory'
     exit 1
