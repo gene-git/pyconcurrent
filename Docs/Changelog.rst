@@ -6,12 +6,20 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> 2.10.1 (2026-01-03)
-	50 commits.
+	1.1.2 (2025-04-24) -> 2.11.0 (2026-01-03)
+	52 commits.
 
 Commits
 =======
 
+
+* 2026-01-03  : **2.11.0**
+
+.. code-block:: text
+
+              - Actualy make the hatch to uv changes (oops)
+                Change license to GPL-2.0-or-later
+              - update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2026-01-03  : **2.10.1**
 
