@@ -6,12 +6,19 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> 2.11.0 (2026-01-03)
-	52 commits.
+	1.1.2 (2025-04-24) -> 2.12.0 (2026-01-03)
+	54 commits.
 
 Commits
 =======
 
+
+* 2026-01-03  : **2.12.0**
+
+.. code-block:: text
+
+              - Add some uv installer options to install script
+              - update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2026-01-03  : **2.11.0**
 
