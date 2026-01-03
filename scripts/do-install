@@ -13,12 +13,12 @@ self='pyconcurrent'
 info="Docs README.rst scripts packaging"
 infodir="/usr/share/${self}"
 
-license="Docs/License.rst"
+license="Docs/License/License.rst"
 licensedir="/usr/share/licenses/${self}"
 
 # so can make app link in /usr/bin
 sitedir=$(/usr/bin/python3 -c "import site; print(site.getsitepackages()[0])")
-self_sitedir=${sitedir}/${self//-/_}
+installdir="${dest}${sitedir}"
 
 if [ ! -d "$dest" ] ; then
     echo 'Missing destination directory'
@@ -27,7 +27,10 @@ else
     # shared
     /usr/bin/rsync --mkpath -a ${info} ${dest}${infodir}
     /usr/bin/rsync --mkpath -a ${license} ${dest}/${licensedir}/
-    /usr/bin/python -m installer --destdir="$dest" dist/*.whl
+
+    /usr/bin/uv pip install ${uv_opts[@]} --target "$installdir" dist/*.whl
+    /usr/bin/rm -rf "$installdir"/.lock
+
     exit 0
 fi
 

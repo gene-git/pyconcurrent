@@ -1,4 +1,4 @@
-.. SPDX-License-Identifier: MIT
+.. SPDX-License-Identifier: GPL-2.0-or-later
 
 ############
 pyconcurrent
@@ -183,10 +183,10 @@ latest commit on git master branch.
 License
 =======
 
-Created by Gene C. and licensed under the terms of the MIT license.
+Created by Gene C. and licensed under the terms of the GPL-2.0-or-later license.
 
-* SPDX-License-Identifier: MIT
-* SPDX-FileCopyrightText: © 2025-present  Gene C <arch@sapience.com>
+* SPDX-License-Identifier: GPL-2.0-or-later
+* SPDX-FileCopyrightText: © 2025-present Gene C <arch@sapience.com>
 
 .. _Github: https://github.com/gene-git/pyconcurrent
 .. _Archlinux AUR: https://aur.archlinux.org/packages/pyconcurrent

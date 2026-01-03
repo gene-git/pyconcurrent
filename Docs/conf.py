@@ -9,7 +9,7 @@
 project = "pyconcurrent"
 copyright = '2025, Gene C'
 author = 'Gene C'
-release = "2.10.1"
+release = "2.11.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
