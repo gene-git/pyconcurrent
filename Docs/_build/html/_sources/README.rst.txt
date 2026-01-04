@@ -27,7 +27,15 @@ Key features
 New / Interesting
 ==================
 
+**2.13.0**
+
+* Add code check script
+
+**2.12.0**
 * switch python packaging from hatch to uv.
+
+**Older**
+
 * New function run_prog() to run external command. Strictly speaking, this has nothing to do with 
   concurrency, but doing this robustly can be a little tricky. So it is included here.
 * PEP 561: Mark module as typed. Now *mypy* run on code using this module will have the type hints.

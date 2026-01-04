@@ -6,12 +6,25 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> 2.12.0 (2026-01-03)
-	54 commits.
+	1.1.2 (2025-04-24) -> 2.13.0 (2026-01-04)
+	56 commits.
 
 Commits
 =======
 
+
+* 2026-01-04  : **2.13.0**
+
+.. code-block:: text
+
+              - **2.13.0**
+            
+                * Add code check script
+ 2026-01-03   ⋯
+
+.. code-block:: text
+
+              - update Docs/Changelogs Docs/_build/html Docs/pyconcurrent.pdf
 
 * 2026-01-03  : **2.12.0**
 
