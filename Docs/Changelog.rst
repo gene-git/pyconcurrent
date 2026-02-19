@@ -6,12 +6,23 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> 2.13.1 (2026-01-06)
-	58 commits.
+	1.1.2 (2025-04-24) -> 2.13.2 (2026-02-19)
+	60 commits.
 
 Commits
 =======
 
+
+* 2026-02-19  : **2.13.2**
+
+.. code-block:: text
+
+              - Fix typo in example-2 of docs. No code change.
+ 2026-01-06   ⋯
+
+.. code-block:: text
+
+              - update Docs/Changelogs
 
 * 2026-01-06  : **2.13.1**
 
