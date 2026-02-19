@@ -28,7 +28,7 @@ async def main():
     """
     pargs can have additional arguments.
     """
-    pargs = ['/usr/bin/sleep']
+    pargs = [test_func_async]
     tasks = [(1, 1), (2, 7), (3, 2), (4, 2), (5, 1)]
 
     proc_run = ProcRunAsyncio(pargs, tasks, num_workers=4, timeout=30)

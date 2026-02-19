@@ -27,6 +27,10 @@ Key features
 New / Interesting
 ==================
 
+**2.13.2**
+
+* Fix typo in example-2 of docs. No code change.
+
 **2.13.0**
 
 * Add code check script
