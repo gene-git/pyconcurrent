@@ -14,7 +14,7 @@ pyconcurrent.proc_asyncio
 Module Contents
 ---------------
 
-.. py:class:: ProcRunAsyncio(pargs: list[Any], tasks_todo: list[tuple[Any, Any]], num_workers: int = 4, timeout: int = 0, verb: bool = False)
+.. py:class:: ProcRunAsyncio(pargs: list[Any], tasks_todo: list[tuple[Any, Any]], num_workers: int = 4, timeout: int | float = 0, verb: bool = False)
 
 
 
@@ -42,7 +42,7 @@ Module Contents
            Max number of processes to use. Value of 0 is unlimited and 1 will
            mean each is run serially one at a time.
 
-       timeout (int):
+       timeout (int | float):
            The maximum number of seconds allotted to each process.
            If not complete within "timeout", then process/function
            will be cancelled/killed and the "result" instance will include:

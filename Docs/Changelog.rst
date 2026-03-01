@@ -6,12 +6,23 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> 2.13.2 (2026-02-19)
-	60 commits.
+	1.1.2 (2025-04-24) -> 2.14.0 (2026-03-01)
+	62 commits.
 
 Commits
 =======
 
+
+* 2026-03-01  : **2.14.0**
+
+.. code-block:: text
+
+              - timeout is now float or int. No reason for it to be limited to int.
+ 2026-02-19   ⋯
+
+.. code-block:: text
+
+              - update Docs/Changelogs
 
 * 2026-02-19  : **2.13.2**
 

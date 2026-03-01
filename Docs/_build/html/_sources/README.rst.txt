@@ -27,6 +27,10 @@ Key features
 New / Interesting
 ==================
 
+** 2.14.0**
+
+* timeout is now float or int. No reason for it to be limited to int.
+
 **2.13.2**
 
 * Fix typo in example-2 of docs. No code change.
