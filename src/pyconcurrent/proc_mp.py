@@ -37,7 +37,7 @@ class ProcRunMp(ProcRun):
                  pargs: list[Any],
                  tasks_todo: list[tuple[Any, Any]],
                  num_workers: int = 4,
-                 timeout: int = 0,
+                 timeout: int | float = 0,
                  verb: bool = False):
         """
         Basic Setup ahead of .run_all()
@@ -88,7 +88,7 @@ class ProcRunMp(ProcRun):
         args += [arg]
 
         try:
-            (success, answer) = func(key, args)
+            (success, answer) = func(key, args)  # type: ignore[operator]
             res.success = success
             res.answer = answer
 

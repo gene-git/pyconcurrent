@@ -29,21 +29,21 @@ class ProcRun:
                  tasks_todo: list[tuple[Any, Any]],
                  mp_type: MPType,
                  num_workers: int = 4,
-                 timeout: int = 0,
+                 timeout: int | float = 0,
                  verb: bool = False):
         """
         Basic Setup ahead of .run_all().
          - tasks_todo is a list of (key, argument)
          - each key must be able to be converted to a string using str(key)
         """
-        self.ok = True
-        self.verb = verb
-        self.num_workers = num_workers
-        self.pargs = pargs
+        self.ok: bool = True
+        self.verb: bool = verb
+        self.num_workers: int = num_workers
+        self.pargs: list[str] = pargs
         self.tasks_todo = tasks_todo
         self.result: list[ProcResult] = []
-        self.timeout = timeout
-        self.mp_type = mp_type
+        self.timeout: int | float = timeout
+        self.mp_type: MPType = mp_type
         self.call_type: CallType = CallType.EXEC
 
         # track total run time

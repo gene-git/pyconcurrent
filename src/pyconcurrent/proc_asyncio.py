@@ -47,7 +47,7 @@ class ProcRunAsyncio(ProcRun):
             Max number of processes to use. Value of 0 is unlimited and 1 will
             mean each is run serially one at a time.
 
-        timeout (int):
+        timeout (int | float):
             The maximum number of seconds allotted to each process.
             If not complete within "timeout", then process/function
             will be cancelled/killed and the "result" instance will include:
@@ -69,7 +69,7 @@ class ProcRunAsyncio(ProcRun):
                  pargs: list[Any],
                  tasks_todo: list[tuple[Any, Any]],
                  num_workers: int = 4,
-                 timeout: int = 0,
+                 timeout: int | float = 0,
                  verb: bool = False):
 
         super().__init__(pargs, tasks_todo, MPType.ASYNCIO, num_workers,
@@ -102,7 +102,7 @@ class ProcRunAsyncio(ProcRun):
         async with semaphore:
             async with asyncio.timeout(timeout):
                 try:
-                    (success, answer) = await func(key, args)
+                    (success, answer) = await func(key, args)  # type: ignore[operator]
                     res.success = success
                     res.answer = answer
                     res.timeout = True
