@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+#
+dest=$(realpath ../)
+export PYTHONPATH="$dest"
+
+/usr/bin/pytest -s -v

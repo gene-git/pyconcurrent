@@ -8,17 +8,18 @@
 # - pycodestyle
 # - mypy
 
-# code
-mod_dir="pyconcurrent"
-cd ./src
-PYTHONPATH=. pylint "$mod_dir"/*.py 
-PYTHONPATH=. pycodestyle --max-line-length=110 $mod_dir/*.py
+mod_dir="src/pyconcurrent"
+export PYTHONPATH=$(/usr/bin/realpath ./src)
 
-mypy --check-untyped-defs --follow-untyped-imports $mod_dir
+echo " module"
+/usr/bin/pylint "$mod_dir"/*.py 
+/usr/bin/pycodestyle --max-line-length=110 $mod_dir/*.py
+/usr/bin/mypy --check-untyped-defs --follow-untyped-imports $mod_dir
 
-cd ../tests
-PYTHONPATH=../src pylint *.py
-PYTHONPATH=../src pycodestyle *.py
-mypy --check-untyped-defs --follow-untyped-imports .
+echo " tests"
+tdir="src/tests"
+/usr/bin/pylint "$tdir"/*.py
+/usr/bin/pycodestyle "$tdir"/*.py
+/usr/bin/mypy --check-untyped-defs --follow-untyped-imports "$tdir"
 
 

@@ -14,7 +14,7 @@ import time
 import asyncio
 
 from .proc_result import ProcResult
-from ._proc import (ProcRun)
+from .proc_run import (ProcRun)
 from ._types import (CallType, MPType)
 
 
@@ -29,41 +29,7 @@ class ProcRunAsyncio(ProcRun):
     subprocess or a function to be called.
     The result of each run is returned as in ProcResult class instance.
 
-    Args:
-        pargs ([Any]):
-            The first element is the command/function to be run and remainder
-            are any additional arguments.
-
-        tasks_todo ([(Any, Any)]):
-            list of task items to be run concurrently.
-            Each task is a 2-tuple, *(key, arg)*.
-
-            - key is a unique identifier, converable to string via str(key)
-            - arg is an additional argument to the routine when it is called.
-
-            Both key and arg are saved into the result class instance returned.
-
-        num_workers (int):
-            Max number of processes to use. Value of 0 is unlimited and 1 will
-            mean each is run serially one at a time.
-
-        timeout (int | float):
-            The maximum number of seconds allotted to each process.
-            If not complete within "timeout", then process/function
-            will be cancelled/killed and the "result" instance will include:
-
-            - res.success set to *False*
-            - res.timeout set to *True*.
-
-        verb (bool):
-            If set to true, some additional information is sent to stdout.
-
-    Attributes:
-        result (*[ProcResult]*):
-            list of results, one per task. See ProcResult for more detail.
-
-    Methods:
-
+    Inherits from base class ProcRun
     """
     def __init__(self,
                  pargs: list[Any],

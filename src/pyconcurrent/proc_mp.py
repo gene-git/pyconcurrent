@@ -15,7 +15,7 @@ import subprocess
 import multiprocessing
 
 from ._types import (CallType, MPType)
-from ._proc import (ProcRun)
+from .proc_run import (ProcRun)
 from .proc_result import ProcResult
 
 
@@ -26,10 +26,10 @@ class ProcRunMp(ProcRun):
     """
     Run concurrent processes using multiprocessing.
 
-    Same calling convention as ProcRunAsyncio.
+    Inherits from base class ProcRun with
+    same calling convention as ProcRunAsyncio.
 
     Note: func cannot be async func() - conflicts with mp starmap using async
-
     """
     _start_method_set = False
 

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2. Examples &#8212; pyconcurrent 3.0.0
+ documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. API Reference" href="Api.html" />
+    <link rel="prev" title="1. pyconcurrent" href="README.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="examples">
+<h1><span class="section-number">2. </span>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h1>
+<p>Examples running an executable synchronously, using multiprocessing and using asyncio.
+These use:</p>
+<ul class="simple">
+<li><p>ProcRunAsyncio class</p></li>
+<li><p>ProcRunMp class</p></li>
+<li><p>run_prog</p></li>
+</ul>
+<p>along with ProcResult class.</p>
+<section id="example-1a-executable-with-asyncio">
+<h2><span class="section-number">2.1. </span>Example 1a: Executable with Asyncio<a class="headerlink" href="#example-1a-executable-with-asyncio" title="Link to this heading">¶</a></h2>
+<p>This example uses asyncio and subprocesses to call an executable.
+<em>tasks</em> must be a list of <em>(key, arg)</em> pairs, 1 per task.</p>
+<p><em>key</em> is a unique identifier, used by caller, one per task. <em>arg</em> is an additional argument
+for each task; typically <em>arg</em> provides for whatever work that task is responsible for.
+Each <em>result</em> returned contains both the <em>key</em> and the <em>arg</em> used by that task,
+information about the success of the task as well as any outputs produced by the task.
+See <em>ProcResult</em> class for more detail.</p>
+<p>This example has 5 tasks to be run concurrently, at most 4 at a time. The results are
+available in the <em>proc_run.result</em>, which is a list of <em>ProcResult</em> items; one per task.
+Since the result order is not pre-defined, each task is identifiable by it’s <em>key</em> available
+in the : <em>result.key</em>.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Example 1a</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="sd">"""</span>
+<span class="sd">Example 1</span>
+<span class="sd">"""</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyconcurrent</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcRunAsyncio</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    pargs can have additional arguments.</span>
+<span class="sd">    """</span>
+    <span class="n">pargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'/usr/bin/sleep'</span><span class="p">]</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">proc_run</span> <span class="o">=</span> <span class="n">ProcRunAsyncio</span><span class="p">(</span><span class="n">pargs</span><span class="p">,</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">proc_run</span><span class="o">.</span><span class="n">run_all</span><span class="p">()</span>
+    <span class="n">proc_run</span><span class="o">.</span><span class="n">print_results</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="example-1b-executable-with-multiprocessing">
+<h2><span class="section-number">2.2. </span>Example 1b: Executable with Multiprocessing<a class="headerlink" href="#example-1b-executable-with-multiprocessing" title="Link to this heading">¶</a></h2>
+<p>To switch to <em>multiprocessing</em> simply replace <em>ProcRunAsyncio</em> with  <em>ProcRunMp</em>,
+and drop <em>await</em> since MP is not <em>async</em>. i.e.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example 1b</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="sd">"""</span>
+<span class="sd">Example 1b</span>
+<span class="sd">"""</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyconcurrent</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcRunMp</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Multiprocessing</span>
+<span class="sd">    """</span>
+    <span class="n">pargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'/usr/bin/sleep'</span><span class="p">]</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">proc_run</span> <span class="o">=</span> <span class="n">ProcRunMp</span><span class="p">(</span><span class="n">pargs</span><span class="p">,</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">proc_run</span><span class="o">.</span><span class="n">run_all</span><span class="p">()</span>
+    <span class="n">proc_run</span><span class="o">.</span><span class="n">print_results</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="example-2-function-with-asnycio">
+<h2><span class="section-number">2.3. </span>Example 2: Function with Asnycio<a class="headerlink" href="#example-2-function-with-asnycio" title="Link to this heading">¶</a></h2>
+<p>The next example uses a caller supplied function together with asyncio. As in the first
+example, there are 5 tasks to do and the number of workers is 4, so that 4 tasks
+are permitted to be run simultaneously.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Example 2</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="sd">"""</span>
+<span class="sd">Example 2</span>
+<span class="sd">"""</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyconcurrent</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcRunAsyncio</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_func_async</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    return 2-tuple (success, result).</span>
+<span class="sd">    """</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">nap_time</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>     <span class="c1"># pull off the last argument</span>
+
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">nap_time</span><span class="p">)</span>
+    <span class="n">answer</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'key'</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+            <span class="s1">'args'</span><span class="p">:</span> <span class="n">args</span><span class="p">,</span>
+            <span class="s1">'success'</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span>
+            <span class="s1">'result'</span><span class="p">:</span> <span class="s1">'test_func done'</span><span class="p">,</span>
+            <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    pargs can have additional arguments.</span>
+<span class="sd">    """</span>
+    <span class="n">pargs</span> <span class="o">=</span> <span class="p">[</span><span class="n">test_func_async</span><span class="p">]</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">proc_run</span> <span class="o">=</span> <span class="n">ProcRunAsyncio</span><span class="p">(</span><span class="n">pargs</span><span class="p">,</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">proc_run</span><span class="o">.</span><span class="n">run_all</span><span class="p">()</span>
+    <span class="n">proc_run</span><span class="o">.</span><span class="n">print_results</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<p>For equivalent multiprocessor version for this one, same as above, simply replace <em>ProcRunAsyncio</em>
+with <em>ProcRunMp</em> and drop any references to <strong>async/await</strong>.</p>
+<p>The caller supplied function here, <em>test_func_async()</em>, must return a 2-tuple
+of <em>(success:bool, answer:Any)</em> where success should be <em>True</em> if function succeeded.</p>
+<p>The function may optionally raise a <em>RuntimeError</em> exception, but typically setting <em>success</em>
+is sufficient. If you are using exceptions then please use this one.</p>
+</section>
+<section id="example-3-executable-with-run-prog">
+<h2><span class="section-number">2.4. </span>Example 3: Executable with run_prog<a class="headerlink" href="#example-3-executable-with-run-prog" title="Link to this heading">¶</a></h2>
+<p>This example illustrates a non-concurrent external program being executed.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Example 3</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="sd">"""</span>
+<span class="sd">Non-Concurrent</span>
+<span class="sd">"""</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyconcurrent</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_prog</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Run external program with arguments</span>
+<span class="sd">    """</span>
+    <span class="n">pargs_good</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'/usr/bin/sleep'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">]</span>
+    <span class="n">pargs_bad</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'/usr/bin/false'</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">pargs</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pargs_good</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">pargs_bad</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Testing: </span><span class="si">{</span><span class="n">pargs</span><span class="si">}</span><span class="s1">:'</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="p">)</span> <span class="o">=</span> <span class="n">run_prog</span><span class="p">(</span><span class="n">pargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">All well'</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">stdout</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">Failed'</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">stderr</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyconcurrent</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">API Reference Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">1. pyconcurrent</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-1a-executable-with-asyncio">2.1. Example 1a: Executable with Asyncio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-1b-executable-with-multiprocessing">2.2. Example 1b: Executable with Multiprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-2-function-with-asnycio">2.3. Example 2: Function with Asnycio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-3-executable-with-run-prog">2.4. Example 3: Executable with run_prog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Api.html">3. API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Appendix.html">4. Appendix</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="README.html" title="previous chapter"><span class="section-number">1. </span>pyconcurrent</a></li>
+      <li>Next: <a href="Api.html" title="next chapter"><span class="section-number">3. </span>API Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/Examples.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

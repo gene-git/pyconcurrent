@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. pyconcurrent &#8212; pyconcurrent 3.0.0
+ documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Examples" href="Examples.html" />
+    <link rel="prev" title="Cidrtools CFFI Documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="pyconcurrent">
+<h1><span class="section-number">1. </span>pyconcurrent<a class="headerlink" href="#pyconcurrent" title="Link to this heading">¶</a></h1>
+<section id="overview">
+<h2><span class="section-number">1.1. </span>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>pyconcurrent is a python class that provides a simple way to do concurrent processing.
+It supports both asyncio and multiprocessing. The tasks to be run concurrently
+can either be an executable which is run as a subprocess or a python function to be called.</p>
+</section>
+<section id="key-features">
+<h2><span class="section-number">1.2. </span>Key features<a class="headerlink" href="#key-features" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Provides two classes to do the work:
+<em>ProcRunAsyncio</em> and <em>ProcRunMp</em></p></li>
+<li><p>Results are provided by the <em>results</em> attribute in each class.
+This is a list of <em>ProcResults</em>; one per run.</p></li>
+<li><p>Documentation includes the API reference.</p></li>
+<li><p>pytest classes validate that all functionality works as it should.</p></li>
+</ul>
+</section>
+<section id="recent-changes">
+<h2><span class="section-number">1.3. </span>Recent Changes<a class="headerlink" href="#recent-changes" title="Link to this heading">¶</a></h2>
+<p><strong>3.0.0</strong></p>
+<ul class="simple">
+<li><p>Move to meson/meson-python for build/packaging.</p></li>
+<li><p>No significance in the major version change, just minor number getting large :)</p></li>
+<li><p>periodic review and tidy up.</p></li>
+</ul>
+</section>
+<section id="signed-source">
+<h2><span class="section-number">1.4. </span>Signed Source<a class="headerlink" href="#signed-source" title="Link to this heading">¶</a></h2>
+<p>All git tags are signed with <a class="reference external" href="mailto:arch&#37;&#52;&#48;sapience&#46;com">arch<span>&#64;</span>sapience<span>&#46;</span>com</a> key which is available via WKD
+or download from <a class="reference external" href="https://www.sapience.com/tech">https://www.sapience.com/tech</a>. Add the key to your package builder gpg keyring.
+The key is included in the Arch package and the source= line with <em>?signed</em> at the end can be used
+to verify the git tag.  You can also manually verify the signature</p>
+</section>
+<section id="pyconcurrent-module">
+<h2><span class="section-number">1.5. </span>pyconcurrent module<a class="headerlink" href="#pyconcurrent-module" title="Link to this heading">¶</a></h2>
+<p>Please see the API reference for details.
+The manual, available in PDF and html, has some illustrative examples using</p>
+<ul class="simple">
+<li><p>ProcRunAsyncio class</p></li>
+<li><p>ProcRunMp class</p></li>
+<li><p>run_prog</p></li>
+</ul>
+<p>Here are a couple of simple examples illustrating how the module can be used.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyconcurrent</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">API Reference Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. pyconcurrent</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-features">1.2. Key features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recent-changes">1.3. Recent Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signed-source">1.4. Signed Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pyconcurrent-module">1.5. pyconcurrent module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">2. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Api.html">3. API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Appendix.html">4. Appendix</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Cidrtools CFFI Documentation</a></li>
+      <li>Next: <a href="Examples.html" title="next chapter"><span class="section-number">2. </span>Examples</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/README.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
