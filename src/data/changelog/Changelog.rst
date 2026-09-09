@@ -6,14 +6,23 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> HEAD (2026-09-07)
-	64 commits.
+	1.1.2 (2025-04-24) -> 3.0.1 (2026-09-09)
+	65 commits.
 
 Commits
 =======
 
 
-* 2026-09-07  : **HEAD**
+* 2026-09-09  : **3.0.1**
+
+.. code-block:: text
+
+              - **3.0.1**
+            
+                * Make pytest optional in meson.build.
+                * Remove unused sphinx tmp files from html docs
+
+* 2026-09-07  : **3.0.0, origin/master**
 
 .. code-block:: text
 
@@ -22,8 +31,7 @@ Commits
                 * Move to meson/meson-python for build/packaging.
                 * No significance in the major version change, just minor number getting large :)
                 * periodic review and tidy up.
-
-* 2026-03-01  : **3.0.0, origin/master**
+ 2026-03-01   ⋯
 
 .. code-block:: text
 

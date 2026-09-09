@@ -101,31 +101,28 @@ install_data(
 #
 # Tests
 #
-pytest = find_program('pytest')
-srcdir = proj_root / 'src'
-testdir = srcdir / 'tests'
+pytest = find_program('/usr/bin/pytest', required: false)
 
-test_files = [
-  'test_asyncio.py',
-  'test_mp.py',
-  'test_run_prog.py',
-]
+if not pytest.found()
+  warning('pytest not found, tests not available')
+else
+  srcdir = proj_root / 'src'
+  testdir = srcdir / 'tests'
 
-foreach this_test : test_files
-  test(this_test,
-    pytest,
-    args: [testdir / this_test],
-    env: {'PYTHONPATH': srcdir},
-    suite: ['unit'],
-    timeout: 60,
-  )
-endforeach
+  test_files = [
+    'test_asyncio.py',
+    'test_mp.py',
+    'test_run_prog.py',
+  ]
 
-#test('tests',
-#  pytest,
-#  args: [src_root / 'src/tests'],
-#  env: {'PYTHONPATH': meson.project_source_root()},
-#  suite: 'pytest',
-#  timeout: 120,
-#)   
+  foreach this_test : test_files
+    test(this_test,
+      pytest,
+      args: [testdir / this_test],
+      env: {'PYTHONPATH': srcdir},
+      suite: ['unit'],
+      timeout: 60,
+    )
+  endforeach
+endif
 

@@ -27,6 +27,11 @@ Key features
 Recent Changes
 ==============
 
+**3.0.1**
+
+* Make pytest optional in meson.build.
+* Remove unused sphinx tmp files from html docs
+
 **3.0.0**
 
 * Move to meson/meson-python for build/packaging.
