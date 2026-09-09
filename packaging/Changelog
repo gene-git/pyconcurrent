@@ -1,17 +1,23 @@
 -------------------------------------------------------
  Changelog    : pyconcurrent
- Tags         : 2.13.1 ➙ 3.0.1
-              : 2026-01-06 ➙ 2026-09-09
+ Tags         : 2.13.2 ➙ 4.0.0
+              : 2026-02-19 ➙ 2026-09-09
               : 6 tags. See Docs for full changelog
 -------------------------------------------------------
 
- 2026-09-09   : 3.0.1
+ 2026-09-09   : 4.0.0
+              - **4.0.0**
+            
+                * Rename Arch package to python-pyconcurrent (Arch naming convention)
+                * No functional change.
+
+ 2026-09-09   : 3.0.1, origin/master
               - **3.0.1**
             
                 * Make pytest optional in meson.build.
                 * Remove unused sphinx tmp files from html docs
 
- 2026-09-07   : 3.0.0, origin/master
+ 2026-09-07   : 3.0.0
               - **3.0.0**
             
                 * Move to meson/meson-python for build/packaging.
@@ -28,9 +34,4 @@
  2026-02-19   : 2.13.2
               - Fix typo in example-2 of docs. No code change.
  2026-01-06   ⋯
-              - update Docs/Changelogs
-
- 2026-01-06   : 2.13.1
-              - PKGBUILD small change
- 2026-01-04   ⋯
               - update Docs/Changelogs

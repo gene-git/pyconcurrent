@@ -9,7 +9,7 @@ Installation
 
 Available on
  * `Github <https://github.com/gene-git/pyconcurrent>`_
- * `Archlinux AUR <https://aur.archlinux.org/packages/pyconcurrent>`_
+ * `Archlinux AUR <https://aur.archlinux.org/packages/python-pyconcurrent>`_
 
 On Arch you can build using the provided PKGBUILD in the packaging directory or from the AUR.
 All git tags are signed with arch@sapience.com key which is available via WKD

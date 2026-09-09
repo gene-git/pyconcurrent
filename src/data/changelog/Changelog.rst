@@ -6,14 +6,23 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> 3.0.1 (2026-09-09)
-	65 commits.
+	1.1.2 (2025-04-24) -> 4.0.0 (2026-09-09)
+	66 commits.
 
 Commits
 =======
 
 
-* 2026-09-09  : **3.0.1**
+* 2026-09-09  : **4.0.0**
+
+.. code-block:: text
+
+              - **4.0.0**
+            
+                * Rename Arch package to python-pyconcurrent (Arch naming convention)
+                * No functional change.
+
+* 2026-09-09  : **3.0.1, origin/master**
 
 .. code-block:: text
 
@@ -22,7 +31,7 @@ Commits
                 * Make pytest optional in meson.build.
                 * Remove unused sphinx tmp files from html docs
 
-* 2026-09-07  : **3.0.0, origin/master**
+* 2026-09-07  : **3.0.0**
 
 .. code-block:: text
 

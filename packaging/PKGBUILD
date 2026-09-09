@@ -8,20 +8,25 @@
 # Maintainer: Gene C <arch@sapience.com>
 # Contributor: 
 # 
-pkgname='pyconcurrent'
+pkgname='python-pyconcurrent'
 pkgdesc='Python module to simplify asyncio/multiprocessing'
 _gitname='pyconcurrent'
 
-pkgver="3.0.1"
+pkgver="4.0.0"
 pkgrel=1
 url="https://github.com/gene-git/pyconcurrent"
+
+provides=(pyconcurrent=$pkgver)
+conflicts=(pyconcurrent)
+replaces=(pyconcurrent)
+
 
 arch=(any)
 license=(GPL-2.0-or-later)
 
 # To build docs uncommont sphinx/texlive
 depends=(
-    'python>=3.13'
+    'python>=3.14'
     'python-dateutil'
 )
 makedepends=(

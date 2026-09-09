@@ -9,15 +9,15 @@ SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build
 
-SOURCES = conf.py ../../version.txt index.rst README.rst Api.rst \
-		  ../../pyconcurrent/proc_asyncio.py \
+SOURCES = conf.py ../../version.txt index.rst README.rst Api.rst Appendix.rst Makefile
+SOURCES += ../../pyconcurrent/proc_asyncio.py \
 		  ../../pyconcurrent/proc_mp.py \
 		  ../../pyconcurrent/proc_result.py \
 		  ../../pyconcurrent/proc_run.py \
 		  ../../pyconcurrent/run_prog.py 
 
 
-.PHONY: help Makefile clean html latexpdf
+.PHONY: help clean html latexpdf
 
 HTML_EXCL   = --exclude _sources/ --exclude .buildinfo  --exclude .doctrees/
 

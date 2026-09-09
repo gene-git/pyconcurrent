@@ -27,16 +27,10 @@ Key features
 Recent Changes
 ==============
 
-**3.0.1**
+**4.0.0**
 
-* Make pytest optional in meson.build.
-* Remove unused sphinx tmp files from html docs
-
-**3.0.0**
-
-* Move to meson/meson-python for build/packaging.
-* No significance in the major version change, just minor number getting large :)
-* periodic review and tidy up.
+* Rename Arch package to python-pyconcurrent (Arch naming convention)
+* No functional change.
 
 Signed Source
 =============
@@ -49,12 +43,11 @@ to verify the git tag.  You can also manually verify the signature
 pyconcurrent module
 ===================
 
-Please see the API reference for details.
-The manual, available in PDF and html, has some illustrative examples using
+Please see the API reference manual for details.
+The manual, available in both PDF and html, has illustrative examples using:
 
 * ProcRunAsyncio class
 * ProcRunMp class
 * run_prog
 
-Here are a couple of simple examples illustrating how the module can be used.
 
