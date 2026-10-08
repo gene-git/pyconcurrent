@@ -29,7 +29,7 @@ class ProcRunAsyncio(ProcRun):
     subprocess or a function to be called.
     The result of each run is returned as in ProcResult class instance.
 
-    Inherits from base class ProcRun
+    Inherits from base class ProcRun:
     """
     def __init__(self,
                  pargs: list[Any],

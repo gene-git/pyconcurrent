@@ -6,14 +6,20 @@ Tags
 
 .. code-block:: text
 
-	1.1.2 (2025-04-24) -> 4.0.0 (2026-09-09)
-	66 commits.
+	1.1.2 (2025-04-24) -> 4.0.1 (2026-10-08)
+	67 commits.
 
 Commits
 =======
 
 
-* 2026-09-09  : **4.0.0**
+* 2026-10-08  : **4.0.1**
+
+.. code-block:: text
+
+              - 4.0.1 Documentation available on `readthedocs <https://pyconcurrent.readthedocs.io>`
+
+* 2026-09-09  : **4.0.0, origin/master**
 
 .. code-block:: text
 
@@ -22,7 +28,7 @@ Commits
                 * Rename Arch package to python-pyconcurrent (Arch naming convention)
                 * No functional change.
 
-* 2026-09-09  : **3.0.1, origin/master**
+* 2026-09-09  : **3.0.1**
 
 .. code-block:: text
 

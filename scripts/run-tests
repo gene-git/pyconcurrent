@@ -1,4 +1,6 @@
 #!/usr/bin/bash
 #
-/usr/bin/meson test -C build/release
+set -euo pipefail
 
+/usr/bin/meson test -C build/release
+exit 0

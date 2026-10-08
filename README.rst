@@ -12,7 +12,7 @@ It supports both asyncio and multiprocessing. The tasks to be run concurrently
 can either be an executable which is run as a subprocess or a python function to be called.
 
 Key features
-============
+------------
 
 * Provides two classes to do the work:
   *ProcRunAsyncio* and *ProcRunMp*
@@ -24,13 +24,14 @@ Key features
 
 * pytest classes validate that all functionality works as it should.
 
-Recent Changes
-==============
+Documentation
+-------------
 
-**4.0.0**
+The manual provides detailed information and is available in both HTML and PDF formats.
+Both are installed under */usr/share/pyconcurrent/docs*.
 
-* Rename Arch package to python-pyconcurrent (Arch naming convention)
-* No functional change.
+The manual is also available at: `readthedocs <https://pyconcurrent.readthedocs.io>`_.
+
 
 Signed Source
 =============
@@ -39,6 +40,7 @@ All git tags are signed with arch@sapience.com key which is available via WKD
 or download from https://www.sapience.com/tech. Add the key to your package builder gpg keyring.
 The key is included in the Arch package and the source= line with *?signed* at the end can be used
 to verify the git tag.  You can also manually verify the signature
+using manually verify using *git tag -v <tag-name>*
 
 pyconcurrent module
 ===================

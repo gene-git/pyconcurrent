@@ -4,8 +4,8 @@
 Project pyconcurrent.
 """
 
-__version__ = "4.0.0"
-__date__ = "2026-09-09"
+__version__ = "4.0.1"
+__date__ = "2026-10-08"
 __reldev__ = "release"
 
 
